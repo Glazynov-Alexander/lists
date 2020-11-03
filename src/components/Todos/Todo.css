@@ -1,0 +1,72 @@
+.todo {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  height: 60px;
+}
+
+.todo input[type="checkbox"] {
+  margin-right: 40px;
+}
+
+.trash {
+  margin-top: 20px;
+}
+.bodyTask {
+  margin-top: 10px;
+}
+
+.Todo input[type="checkbox"] {
+
+}
+
+
+
+.bodyTaskTrue p{
+  text-decoration: line-through;
+  color: #B0B0B0;
+}
+.text p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.bodyTaskFalse p {
+  color: #000000;
+}
+
+.container {
+  padding-top: 20px;
+}
+
+.trashIcon {
+  font-size: 25px;
+  color: #B0B0B0;
+  cursor: pointer;
+}
+
+.trashIcon:hover {
+  color: black;
+}
+
+.scroll {
+  max-height: 400px;
+  overflow: auto;
+}
+.scroll::-webkit-scrollbar  {
+  width: 0;
+}
+
+.todosh div:last-child {
+  margin-right: -310px;
+}
+
+.todosh div:nth-child(2) {
+  margin-left: -280px;
+}
+
+.divCheck {
+  width: 25px;
+  height: 25px;
+  border: 2px solid red ;
+  border-radius: 50%;
+}
