@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Buttons from "../Buttons";
 
-function Footer({ tasks, deleteTasksCompleted, changeType }) {
+function Footer({ tasks }) {
   let notFinishTasks = tasks.filter((elem) => elem.taskChecked === false);
   return (
     <div className="footer">

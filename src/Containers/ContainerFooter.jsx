@@ -2,8 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import Footer from "../Components/Footer/Footer";
 
-import {changeType} from "../actions/actions";
-import {deleteTasksCompleted} from "../actions/thunks.js";
+import {changeType} from "../store/reducers/todo/actions/actions";
+import {deleteTasksCompleted} from "../store/reducers/todo/actions/thunks.js";
 
 class ContainerFooter extends React.Component {
     render() {

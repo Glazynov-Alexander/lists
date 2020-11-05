@@ -12,12 +12,14 @@ let TodoReducer = (state = initialState, action) => {
                 typeList: action.text,
             };
         }
+
         case CREATE_NEW_TASK: {
             return {
                 ...state,
                 tasks: [...state.tasks, action.newTask],
             };
         }
+
         case GET_TASKS: {
             return {
                 ...state,

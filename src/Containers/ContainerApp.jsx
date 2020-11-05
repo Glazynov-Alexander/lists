@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import App from "../App";
-import {createNewTaskLocal, getTasksLocal} from "../actions/thunks.js";
+import {createNewTaskLocal, getTasksLocal} from "../store/reducers/todo/actions/thunks.js";
 
 class ContainerApp extends React.Component {
     componentDidMount() {
