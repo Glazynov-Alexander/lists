@@ -5,7 +5,9 @@ body {
 
 .app {
     width: 600px;
-    margin: 20px auto ;
+    /*margin-right:  auto ;*/
+    /*margin-left:  auto ;*/
+    margin: 20px  auto 20px  auto ;
 }
 
 header {
@@ -45,12 +47,12 @@ input[type=checkbox]:checked + .pseudoBox::before {
 
 .todoList {
     box-shadow: 0px 0px 15px rgba(23, 23, 2, .5);
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 .footer {
     display: flex;
-    padding: 20px 0px;
+    padding: 20px ;
     border-top: 1px solid #ccc;
 }
 
@@ -65,7 +67,7 @@ input[type=checkbox]:checked + .pseudoBox::before {
 }
 
 .buttonFooter {
-    margin-top: 8px;
+    margin: 8px;
 }
 
 .buttonFooter button {
@@ -82,4 +84,3 @@ input[type=checkbox]:checked + .pseudoBox::before {
     outline: 0 none !important;
     border-bottom: 1px solid #B0B0B0 !important;
 }
-

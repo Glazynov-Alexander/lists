@@ -6,13 +6,11 @@ function Footer({ tasks, deleteTasksCompleted, changeType }) {
   let notFinishTasks = tasks.filter((elem) => elem.taskChecked === false);
   return (
     <div className="footer">
-      <div>
         <p>
           {notFinishTasks.length === 0
             ? "not tasks"
             : notFinishTasks.length + " not completed tasks"}
         </p>
-      </div>
       <div className="buttonFooter">
         <Buttons/>
       </div>

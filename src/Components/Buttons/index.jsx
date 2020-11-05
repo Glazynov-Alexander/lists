@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/cjs/Button";
 import {changeType} from "../../actions/actions";
-import {deleteTasksCompleted} from "../../thunks/thunks";
+import {deleteTasksCompleted} from "../../actions/thunks";
 import {connect} from "react-redux";
 
 function Buttons({ changeType, tasks, deleteTasksCompleted }) {

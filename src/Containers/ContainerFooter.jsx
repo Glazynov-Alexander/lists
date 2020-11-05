@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Footer from "../Components/Footer/Footer";
 
 import {changeType} from "../actions/actions";
-import {deleteTasksCompleted} from "../thunks/thunks.js";
+import {deleteTasksCompleted} from "../actions/thunks.js";
 
 class ContainerFooter extends React.Component {
     render() {

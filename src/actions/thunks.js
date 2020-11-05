@@ -1,4 +1,4 @@
-import {createNewTask, getTasks} from "../actions/actions";
+import {createNewTask, getTasks} from "./actions";
 
 export const deleteTask = (id) => async (dispatch) => {
     let tasks = await JSON.parse(localStorage.getItem("ReactTasks"));
