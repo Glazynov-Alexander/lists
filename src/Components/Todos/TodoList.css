@@ -15,9 +15,7 @@
   margin-top: 10px;
 }
 
-.Todo input[type="checkbox"] {
 
-}
 
 
 
@@ -56,11 +54,11 @@
   width: 0;
 }
 
-.todosh div:last-child {
+.inputCheck div:last-child {
   margin-right: -310px;
 }
 
-.todosh div:nth-child(2) {
+.inputCheck div:nth-child(2) {
   margin-left: -280px;
 }
 

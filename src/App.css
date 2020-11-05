@@ -5,18 +5,23 @@ body {
 
 .app {
     width: 600px;
-    margin: auto;
+    margin: 20px auto ;
 }
 
-.app h1 {
-    margin-top: 0;
+header {
+    text-align: center;
+}
+
+
+.inputText {
+    padding: 20px 20px 20px 20px;
 }
 
 input[type=checkbox] {
     display: none;
 }
 
-.pseudocheckbox::before {
+.pseudoBox::before {
     content: "";
     display: inline-block;
     box-sizing: border-box;
@@ -34,12 +39,13 @@ input[type=checkbox] {
     color: green;
 }
 
-input[type=checkbox]:checked + .pseudocheckbox::before {
+input[type=checkbox]:checked + .pseudoBox::before {
     content: "\2713";
 }
 
 .todoList {
     box-shadow: 0px 0px 15px rgba(23, 23, 2, .5);
+    margin: 10px;
 }
 
 .footer {
@@ -58,11 +64,11 @@ input[type=checkbox]:checked + .pseudocheckbox::before {
     color: #B0B0B0;
 }
 
-.boottonFooter {
+.buttonFooter {
     margin-top: 8px;
 }
 
-.boottonFooter button {
+.buttonFooter button {
     margin-left: 15px;
 }
 
@@ -77,10 +83,3 @@ input[type=checkbox]:checked + .pseudocheckbox::before {
     border-bottom: 1px solid #B0B0B0 !important;
 }
 
-
-@media (max-width: 700px) {
-    .todoList {
-        margin: 10px   ;
-    }
-
-}

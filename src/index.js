@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./components/Redux/store";
-import AppContainer from "./Container-App.jsx";
+import store from "./Redux/store";
+import ContainerApp from "./Containers/ContainerApp.jsx";
 import { BrowserRouter } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <AppContainer />
+        <ContainerApp />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
