@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import Footer from "../Components/Footer/Footer";
+import Index from "../Components/Footer";
 
 import {changeType} from "../store/reducers/todo/actions/actions";
 import {deleteTasksCompleted} from "../store/reducers/todo/actions/thunks.js";
@@ -12,7 +12,7 @@ class ContainerFooter extends React.Component {
             let tasks = JSON.parse(localStorage.getItem("ReactTasks"));
             localStorage.setItem("ReactTasks", JSON.stringify(tasks.filter((elem) => elem.taskChecked === false)));
         };
-        return <Footer {...this.props} deleteTasks={deleteTasks}/>;
+        return <Index {...this.props} deleteTasks={deleteTasks}/>;
     }
 }
 

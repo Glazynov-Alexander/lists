@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import ContainerFooter from "./Containers/ContainerFooter";
-import InputText from "./Components/InputText/InputText";
+import InputText from "./Components/InputText/";
 import ContainerTodoList from "./Containers/ContainerTodoList.jsx";
 
 function App(props) {
