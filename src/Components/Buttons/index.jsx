@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/cjs/Button";
 import {changeType} from "../../store/reducers/todo/actions/actions";
 import {deleteTasksCompleted} from "../../store/reducers/todo/actions/thunks";

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import "../Components/TodoList/TodoList.css";
+import "../Components/TodoList/style.css";
 import { deleteTask, checkedLocal } from "../store/reducers/todo/actions/thunks.js";
-import TodoList from "../Components/TodoList/TodoList.jsx";
+import Index from "../Components/TodoList";
 
 class ContainerTodoList extends React.Component {
   render() {
-    return <TodoList {...this.props} />;
+    return <Index {...this.props} />;
   }
 }
 

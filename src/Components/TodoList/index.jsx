@@ -1,10 +1,10 @@
 import React from "react";
-import "./TodoList.css";
+import "./style.css";
 
 import {Modal} from "react-bootstrap";
 import Task from "../Task/Task";
 
-function TodoList(props) {
+function Index(props) {
     let tasks = [];
 
     if (props.typeList === "completed") {
@@ -31,4 +31,4 @@ function TodoList(props) {
     );
 }
 
-export default TodoList;
+export default Index;
