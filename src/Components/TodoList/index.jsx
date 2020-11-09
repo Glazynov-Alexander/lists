@@ -23,7 +23,7 @@ function TodoList(props) {
                 }
                 return (
                     <div key={el.idTask} className="todo">
-                        <Task  {...el} checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
+                        <Task  {...el} idTask={el._id} checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
                     </div>
                 );
             })}
