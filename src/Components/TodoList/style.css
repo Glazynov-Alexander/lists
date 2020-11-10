@@ -26,6 +26,7 @@
 .text p {
   font-size: 20px;
   margin: 0;
+  margin-top: -5px;
 }
 
 .bodyTaskFalse p {

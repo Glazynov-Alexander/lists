@@ -3,24 +3,30 @@ import React from "react";
 import ContainerFooter from "./Containers/ContainerFooter";
 import InputText from "./Components/InputText/";
 import ContainerTodoList from "./Containers/ContainerTodoList.jsx";
+import {Route} from "react-router";
 
 function App(props) {
+
+
   return (
     <div className="app">
+
       <header>
         <h1 className="titleApp">Todo list</h1>
       </header>
 
-      <main className="todoList">
-        <InputText createNewTask={props.createNewTask}/>
+      <Route  path="/Tasks" render={() => (
+          <main className="todoList">
+              <InputText symbol={props.symbol} createNewTask={props.createNewTask}/>
 
-        {props.tasks.length !== 0 ? (
-          <div>
-            <ContainerTodoList />
-            <ContainerFooter />
-          </div>
-        ) : null}
-      </main>
+              {props.tasks.length !== 0 ? (
+                  <div>
+                      <ContainerTodoList />
+                      <ContainerFooter />
+                  </div>
+              ) : null}
+          </main>
+      )} />
     </div>
   );
 }

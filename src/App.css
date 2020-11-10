@@ -82,3 +82,10 @@ input[type=checkbox]:checked + .pseudoBox::before {
     outline: 0 none !important;
     border-bottom: 1px solid #B0B0B0 !important;
 }
+
+.preloader {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+
+}

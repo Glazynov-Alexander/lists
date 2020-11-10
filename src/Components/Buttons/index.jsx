@@ -9,6 +9,7 @@ function Buttons({ changeType, tasks, deleteTasksCompleted }) {
   return (
     <>
       {button.map((elem, index) => {
+
         return (
           <Button
             key={index}
@@ -21,7 +22,7 @@ function Buttons({ changeType, tasks, deleteTasksCompleted }) {
       })}
 
       {tasks.some((elem) => elem.taskChecked === true) ? (
-        <Button variant="dark" onClick={() => deleteTasksCompleted()}>
+        <Button variant="dark" onClick={() => deleteTasksCompleted() }>
           Completed tasks
         </Button>
       ) : null}

@@ -1,5 +1,6 @@
-let initialState = {tasks: [], typeList: "all"};
+let initialState = {tasks: [], typeList: "all", user: null };
 
+const CREATE_NEW_USER = "CREATE_NEW_USER";
 const CREATE_NEW_TASK = "CREATE_NEW_TASK";
 const GET_TASKS = "GET_TASKS";
 const TYPE = "TYPE";
@@ -25,6 +26,13 @@ let TodoReducer = (state = initialState, action) => {
                 ...state,
                 tasks: [...action.tasks],
             };
+        }
+
+        case CREATE_NEW_USER : {
+            return {
+                ...state,
+                user: {...action.user}
+            }
         }
 
         default:

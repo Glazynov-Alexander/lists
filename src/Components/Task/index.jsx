@@ -4,6 +4,7 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 let Task = (props) => {
+
     return (
         <Container>
             <Row className="inputCheck">
@@ -14,14 +15,14 @@ let Task = (props) => {
                             <input
                                 defaultChecked={true}
                                 onClick={(e) => {
-                                    props.checkedLocal(e.target.checked, props._id);
+                                    props.checkedLocal(e.target.checked, props._id, props.symbol);
                                 }}
                                 type="checkBox"
                             />
                         ) : (
                             <input
                                 onClick={(e) => {
-                                    props.checkedLocal(e.target.checked, props._id);
+                                    props.checkedLocal(e.target.checked, props._id, props.symbol);
                                 }}
                                 type="checkBox"
                             />
@@ -46,7 +47,7 @@ let Task = (props) => {
                 <Col>
                     <FontAwesomeIcon
                         onClick={() => {
-                            props.deleteTask(props._id);
+                            props.deleteTask(props._id, props.symbol);
                         }}
                         className={"trashIcon"}
                         icon={faTrashAlt}

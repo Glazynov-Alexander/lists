@@ -1,31 +1,65 @@
-import React from "react";
+import React, {Suspense} from "react";
 import {connect} from "react-redux";
 
-import App from "../App";
-import {createNewTaskLocal, getTasksLocal} from "../store/reducers/todo/actions/thunks.js";
-import Axios from "axios";
-// let user = '5fa8e0d7ff601f2798955c50'
+import {createNewTaskLocal, getTasksLocal, createUser, getUser} from "../store/reducers/todo/actions/thunks.js";
+import {Redirect, Route} from "react-router";
+import {Spinner} from "react-bootstrap";
+import '../App.css'
+// import {getTasks} from "../store/reducers/todo/actions/actions";
+
+const ContainerLogin = React.lazy(() => import("./ContainerLogin"))
+
+const App = React.lazy(() => import("../App"))
+
 class ContainerApp extends React.Component {
-    componentDidMount() {
-        // Axios.get("/products/bit/drozd").then(response => {
-        //      console.log(response.data)
-        // })
+    // componentDidMount() {
+        // if(this.props.user) {
+        //     console.log(this.props.user)
+        //     this.props.getUser(this.props.user.name)
+        //     // this.props.getTasksLocal( this.props.user._id ? this.props.user._id : null);
+        // }
 
-        // Axios.post("/products/set", {email: "body@fog", name: "dambldor"})
 
-        this.props.getTasksLocal(this.props.tasks);
+    // }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(prevProps)
+        console.log(this.props.tasks)
+
+        if(!prevProps.user) {
+            this.props.getUser(this.props.user.name)
+            this.props.getTasksLocal( this.props.user._id ? this.props.user._id : null);
+        }
+
+
     }
 
+
     render() {
-        let createNewTask = (elem) => {
+
+        let createNewTask = (elem, symbol) => {
             if (elem.code === "Enter" && elem.target.value !== "") {
-                this.props.createNewTaskLocal(elem.target.value);
+                this.props.createNewTaskLocal(elem.target.value, symbol);
                 elem.target.value = "";
             }
         };
-        return <App createNewTask={createNewTask} tasks={this.props.tasks}/>;
+
+        if (!this.props.user) {
+            return <Suspense fallback={<Spinner className='preloader' animation="grow"/>}>
+                <Redirect to="/Login"/>
+                <Route path="/Login" render={() => <ContainerLogin/>}/>
+            </Suspense>
+        }
+
+        return <div className="app">
+            <Suspense fallback={<Spinner className="preloader" animation="grow"/>}>
+                <Redirect to="/Tasks"/>
+                <App symbol={this.props.user._id} createNewTask={createNewTask} tasks={this.props.tasks}/>
+            </Suspense>
+        </div>
+
     }
 }
 
-let mapStateToProps = (state) => ({tasks: state.todo.tasks});
-export default connect(mapStateToProps, {createNewTaskLocal, getTasksLocal})(ContainerApp);
+let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user});
+export default connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser})(ContainerApp);
