@@ -6,12 +6,8 @@ function InputText(props) {
     return (
         <div className="inputText" >
             <Form.Control
-                className={
-                    "rounded-0 inputTodo border-top-0 border-right-0 border-left-0"
-                }
-                onKeyDown={(e) => {
-                    props.createNewTask(e, props.symbol);
-                }}
+                className={"rounded-0 inputTodo border-top-0 border-right-0 border-left-0"}
+                onKeyDown={(e) => {props.createNewTask(e, props.symbol);}}
                 placeholder="enter your task"
             />
         </div>

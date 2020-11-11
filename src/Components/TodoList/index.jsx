@@ -6,7 +6,6 @@ import Task from "../Task";
 
 function TodoList(props) {
     let tasks = [];
-
     if (props.typeList === "completed") {
         tasks = props.tasks.filter((elem) => elem.taskChecked === true);
     } else if (props.typeList === "todo") {
@@ -18,14 +17,17 @@ function TodoList(props) {
     return (
         <Modal.Body className="scroll">
             {tasks.map((el) => {
-                if (!el) {
-                    return null;
+                if (!el) return null;
+
+                else if(props.user._id === el.symbol) {
+                    return (
+                        <div key={el._id} className="todo">
+                            <Task  {...el}  checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
+                        </div>
+                    );
                 }
-                return (
-                    <div key={el._id} className="todo">
-                        <Task  {...el}  checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
-                    </div>
-                );
+
+                return null
             })}
         </Modal.Body>
     );

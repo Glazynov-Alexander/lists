@@ -11,21 +11,15 @@ let Task = (props) => {
 
                 <Col>
                     <label>
-                        {props.taskChecked ? (
-                            <input
+                        {props.taskChecked ? (<input
                                 defaultChecked={true}
                                 onClick={(e) => {
                                     props.checkedLocal(e.target.checked, props._id, props.symbol);
-                                }}
-                                type="checkBox"
-                            />
-                        ) : (
-                            <input
+                                }} type="checkBox"/>
+                        ) : (<input
                                 onClick={(e) => {
                                     props.checkedLocal(e.target.checked, props._id, props.symbol);
-                                }}
-                                type="checkBox"
-                            />
+                                }} type="checkBox"/>
                         )}
 
                         <span className={"pseudoBox"}></span>

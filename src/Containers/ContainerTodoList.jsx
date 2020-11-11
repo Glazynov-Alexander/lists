@@ -10,5 +10,5 @@ class ContainerTodoList extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => ({tasks: state.todo.tasks, typeList: state.todo.typeList});
+let mapStateToProps = (state) => ({tasks: state.todo.tasks, typeList: state.todo.typeList, user: state.todo.user});
 export default connect(mapStateToProps, { checkedLocal, deleteTask })(ContainerTodoList);

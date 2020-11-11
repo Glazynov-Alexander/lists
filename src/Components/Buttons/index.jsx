@@ -1,10 +1,9 @@
 import React from "react";
 import Button from "react-bootstrap/cjs/Button";
 import {changeType} from "../../store/reducers/todo/actions/actions";
-import {deleteTasksCompleted} from "../../store/reducers/todo/actions/thunks";
 import {connect} from "react-redux";
 
-function Buttons({ changeType, tasks, deleteTasksCompleted }) {
+function Buttons({ changeType, tasks , deleteTasks}) {
   const button = ["all", "todo", "completed"];
   return (
     <>
@@ -22,7 +21,7 @@ function Buttons({ changeType, tasks, deleteTasksCompleted }) {
       })}
 
       {tasks.some((elem) => elem.taskChecked === true) ? (
-        <Button variant="dark" onClick={() => deleteTasksCompleted() }>
+        <Button variant="dark" onClick={() => deleteTasks() }>
           Completed tasks
         </Button>
       ) : null}
@@ -36,4 +35,4 @@ let mapStateToProps =(state) => {
   }
 }
 
-export default connect(mapStateToProps, { changeType, deleteTasksCompleted })(Buttons) ;
+export default connect(mapStateToProps, { changeType })(Buttons) ;
