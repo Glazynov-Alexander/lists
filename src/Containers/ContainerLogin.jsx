@@ -5,14 +5,8 @@ import {createUser, getUser} from "../store/reducers/todo/actions/thunks.js";
 import Login from "../Components/Login";
 
 class ContainerLogin extends React.Component {
-
-
     render() {
-
-          return (<div className="app">
-              <Login {...this.props}/>
-          </div>)
-
+          return <Login {...this.props}/>
     }
 }
 
