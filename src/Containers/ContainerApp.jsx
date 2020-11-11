@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from "react";
+import React, {Suspense} from "react";
 import {connect} from "react-redux";
 import {createNewTaskLocal, getTasksLocal, createUser, getUser} from "../store/reducers/todo/actions/thunks.js";
 import {Redirect, Route, withRouter} from "react-router";
