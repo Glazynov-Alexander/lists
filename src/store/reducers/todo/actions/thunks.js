@@ -31,7 +31,8 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
 
 
 export const getUser = (name, password) => async (dispatch) => {
-    let globalUsers = await Axios.get(`/products/user?name=${name}&password=${password}`)
+let a = {name,password}
+    let globalUsers = await Axios.get(`/products/user?name=${JSON.stringify(a)}`)
     if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user[0]));
 };
 export const createUser = (name, password) => async (dispatch) => {
