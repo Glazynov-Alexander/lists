@@ -16,7 +16,7 @@ function App(props) {
         <div className="app">
             <header>
                 <h1 className="titleApp">Todo list</h1>
-                <Button variant="dark" onClick={() => { logOut()} }>Log out</Button>
+                <Button variant="dark" className="logOut" onClick={() => { logOut()} }>Log out</Button>
             </header>
 
             <Route path="/Tasks" render={() => (

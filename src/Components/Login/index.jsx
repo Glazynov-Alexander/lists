@@ -30,7 +30,8 @@ function Login(props) {
                 </Form.Group>
             </Form>
             <Button variant="dark" onClick={() => {
-                props.createUser(name, password)}}>Login</Button>
+                if(password && name) {props.createUser(name, password)}}}
+                >Login</Button>
         </div>
     );
 }

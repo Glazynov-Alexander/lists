@@ -1,6 +1,5 @@
 import {createNewTask, getTasks, createNewUser} from "./actions";
 import Axios from "axios";
-
 const getTasksUniversal = (globalTasks, symbol) => {
     let tasks = globalTasks.data.tasks.filter(el => el.symbol === symbol)
     return tasks
@@ -31,8 +30,8 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
 };
 
 
-export const getUser = (name) => async (dispatch) => {
-    let globalUsers = await Axios.get(`/products/user?name=${name}`)
+export const getUser = (name, password) => async (dispatch) => {
+    let globalUsers = await Axios.get(`/products/user?name=${name}&password=${password}`)
     if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user[0]));
 };
 export const createUser = (name, password) => async (dispatch) => {

@@ -20,7 +20,7 @@ class ContainerApp extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
-            this.props.getUser(this.props.user.name)
+            this.props.getUser(this.props.user.name, this.props.user.password)
             this.props.getTasksLocal(this.props.user._id ? this.props.user._id : null);
         }
     }
