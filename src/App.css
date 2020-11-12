@@ -95,3 +95,11 @@ input[type=checkbox]:checked + .pseudoBox::before {
     margin-top: 100px;
     margin-left: 150px;
 }
+
+.loginButtons  {
+    display: flex;
+    justify-content: space-between;
+}
+.status {
+    background: red;
+}

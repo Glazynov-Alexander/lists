@@ -4,7 +4,6 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 let Task = (props) => {
-
     return (
         <Container>
             <Row className="inputCheck">

@@ -3,22 +3,27 @@ import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
 
-function Login(props) {
+
+function Registration(props) {
+
     let [name, upName] = useState()
     let [password, upPassword] = useState()
     let [statusUser, upStatusUser] = useState()
-    let getUser = (name, password) => {
+    let createUser = (name, password) => {
         if (name || password) {
-            props.getUser(name, password).then(response => {
-                if (response) {
-                    upStatusUser(response)
+            props.createUser(name, password).then(response => {
+                if (response.status) {
+                    upStatusUser(response.status)
                 }
+                return null
             })
         }
     }
+
+
     return (
         <div className="inputText">
-            <h1>Log in</h1>
+            <h1>Registration</h1>
             <Form>
                 <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>
@@ -26,7 +31,7 @@ function Login(props) {
                     </Form.Label>
                     <Col sm={10}>
                         <Form.Control type="text" onChange={(e) => upName(e.target.value)} placeholder="Name"/>
-                        {statusUser ? <h3 className="status">{statusUser}</h3> : null}
+                        {statusUser ? <h3 className="status">{statusUser}</h3>: null}
                     </Col>
                 </Form.Group>
 
@@ -35,14 +40,15 @@ function Login(props) {
                         Password
                     </Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="password" onChange={(e) => upPassword(e.target.value)} placeholder="Password"/>
+                        <Form.Control type="password" onChange={(e) => upPassword(e.target.value)}  placeholder="Password"/>
                     </Col>
                 </Form.Group>
             </Form>
-            <Button variant="dark" onClick={() => getUser(name, password)}
-            >Login</Button>
+                <Button variant="dark" onClick={() => {
+                    if(password && name) {createUser(name, password)}}}
+                >Create User</Button>
         </div>
     );
 }
 
-export default Login;
+export default Registration;

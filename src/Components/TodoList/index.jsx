@@ -25,9 +25,7 @@ function TodoList(props) {
                             <Task  {...el}  checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
                         </div>
                     );
-                }
-
-                return null
+                }return null
             })}
         </Modal.Body>
     );

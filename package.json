@@ -2,7 +2,6 @@
   "name": "todos",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Glazynov-Alexander/React-App-Tasks.github.io/RactAppTasks",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",

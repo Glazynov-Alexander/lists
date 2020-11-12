@@ -29,10 +29,5 @@ function Buttons({ changeType, tasks , deleteTasks}) {
   );
 }
 
-let mapStateToProps =(state) => {
-  return {
-    tasks:state.todo.tasks
-  }
-}
-
+let mapStateToProps =(state) => ({tasks: state.todo.tasks})
 export default connect(mapStateToProps, { changeType })(Buttons) ;

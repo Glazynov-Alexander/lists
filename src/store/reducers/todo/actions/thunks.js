@@ -1,5 +1,6 @@
 import {createNewTask, getTasks, createNewUser} from "./actions";
 import Axios from "axios";
+
 const getTasksUniversal = (globalTasks, symbol) => {
     let tasks = globalTasks.data.tasks.filter(el => el.symbol === symbol)
     return tasks
@@ -31,16 +32,21 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
 
 
 export const getUser = (name, password) => async (dispatch) => {
-let a = {name,password}
-    let globalUsers = await Axios.get(`/products/user?name=${JSON.stringify(a)}`)
+    let user = {name, password}
+    let globalUsers = await Axios.get(`/products/user?name=${JSON.stringify(user)}`)
+    if (globalUsers.data.user.length === 0) {
+        return 'no such user exists'
+    }
+    localStorage.setItem('user', JSON.stringify(globalUsers.data.user[0]))
     if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user[0]));
 };
 export const createUser = (name, password) => async (dispatch) => {
     let a = await Axios.post("/products/create/user", {name, password})
-    if (!a.data.client) {
+    if (typeof a.data === "string") {
+        return a.data
+    } else if (!a.data.client) {
         localStorage.setItem('user', JSON.stringify(a.data.user))
         return dispatch(createNewUser(a.data.user))
     }
-    localStorage.setItem('user', JSON.stringify(a.data.client[0]))
-    return dispatch(createNewUser(a.data.client[0]))
+
 };
