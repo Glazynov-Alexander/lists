@@ -8,7 +8,7 @@ import {deleteTasksCompleted} from "../store/reducers/todo/actions/thunks.js";
 class ContainerFooter extends React.Component {
     render() {
         let deleteTasks = () => {
-            this.props.deleteTasksCompleted(this.props.user._id);
+            return this.props.deleteTasksCompleted(this.props.user._id);
         };
         return <Footer {...this.props} deleteTasks={deleteTasks}/>;
     }

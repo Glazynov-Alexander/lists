@@ -1,9 +1,13 @@
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row, Spinner} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, {useState} from "react";
 
 let Task = (props) => {
+    let [spinner, funClick] = useState(false)
+    if (spinner) {
+        return <Spinner className="loader" animation="border" variant="dark"/>
+    }
     return (
         <Container>
             <Row className="inputCheck">
@@ -13,14 +17,19 @@ let Task = (props) => {
                         {props.taskChecked ? (<input
                                 defaultChecked={true}
                                 onClick={(e) => {
-                                    props.checkedLocal(e.target.checked, props._id, props.symbol);
+                                    funClick(true)
+                                    props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
+                                        funClick(false)
+                                    })
                                 }} type="checkBox"/>
                         ) : (<input
                                 onClick={(e) => {
-                                    props.checkedLocal(e.target.checked, props._id, props.symbol);
+                                    funClick(true)
+                                    props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
+                                        funClick(false)
+                                    });
                                 }} type="checkBox"/>
                         )}
-
                         <span className={"pseudoBox"}></span>
                     </label>
                 </Col>
@@ -40,7 +49,10 @@ let Task = (props) => {
                 <Col>
                     <FontAwesomeIcon
                         onClick={() => {
-                            props.deleteTask(props._id, props.symbol);
+                            funClick(true)
+                            props.deleteTask(props._id, props.symbol).then(response => {
+                                funClick(false)
+                            });
                         }}
                         className={"trashIcon"}
                         icon={faTrashAlt}

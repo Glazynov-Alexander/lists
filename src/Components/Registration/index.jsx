@@ -12,8 +12,8 @@ function Registration(props) {
     let createUser = (name, password) => {
         if (name || password) {
             props.createUser(name, password).then(response => {
-                if (response.status) {
-                    upStatusUser(response.status)
+                if (response) {
+                    upStatusUser(response)
                 }
                 return null
             })

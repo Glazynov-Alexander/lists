@@ -14,18 +14,20 @@ function TodoList(props) {
         tasks = props.tasks;
     }
 
+
     return (
         <Modal.Body className="scroll">
             {tasks.map((el) => {
                 if (!el) return null;
 
-                else if(props.user._id === el.symbol) {
+                else if (props.user._id === el.symbol) {
                     return (
                         <div key={el._id} className="todo">
-                            <Task  {...el}  checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
+                            <Task  {...el} checkedLocal={props.checkedLocal} deleteTask={props.deleteTask}/>
                         </div>
                     );
-                }return null
+                }
+                return null
             })}
         </Modal.Body>
     );

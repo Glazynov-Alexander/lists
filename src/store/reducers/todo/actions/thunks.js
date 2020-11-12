@@ -43,6 +43,7 @@ export const getUser = (name, password) => async (dispatch) => {
 export const createUser = (name, password) => async (dispatch) => {
     let a = await Axios.post("/products/create/user", {name, password})
     if (typeof a.data === "string") {
+        debugger
         return a.data
     } else if (!a.data.client) {
         localStorage.setItem('user', JSON.stringify(a.data.user))

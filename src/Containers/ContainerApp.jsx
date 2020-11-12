@@ -18,7 +18,6 @@ class ContainerApp extends React.Component {
         }
 
     }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
             this.props.getUser(this.props.user.name, this.props.user.password)
@@ -27,9 +26,9 @@ class ContainerApp extends React.Component {
     }
 
     render() {
-        let createNewTask = (elem, symbol) => {
-            if (elem.code === "Enter" && elem.target.value !== "") {
-                this.props.createNewTaskLocal(elem.target.value, symbol);
+        let createNewTask = async (elem, symbol) => {
+            if ( elem.target.value !== "") {
+                 await this.props.createNewTaskLocal(elem.target.value, symbol);
                 elem.target.value = "";
             }
         };
