@@ -1,4 +1,4 @@
-let initialState = {tasks: [], typeList: "all", user: null };
+let initialState = {tasks: [], typeList: "all", user: null , spinner: null};
 
 const CREATE_NEW_USER = "CREATE_NEW_USER";
 const CREATE_NEW_TASK = "CREATE_NEW_TASK";

@@ -10,6 +10,14 @@ function Buttons({changeType, tasks, deleteTasks}) {
     if (spinner) {
         return <Spinner className="loader" animation="border" variant="dark"/>
     }
+
+    const preloader = () => {
+        funClick(true)
+        deleteTasks().then(response => {
+            funClick(false)
+        })
+    }
+
     return (
         <>
             {button.map((elem, index) => {
@@ -26,12 +34,7 @@ function Buttons({changeType, tasks, deleteTasks}) {
             })}
 
             {tasks.some((elem) => elem.taskChecked === true) ? (
-                <Button variant="dark" onClick={() => {
-                    funClick(true)
-                    deleteTasks().then(response => {
-                        funClick(false)
-                    })
-                }}>
+                <Button variant="dark" onClick={() => {preloader()}}>
                     Completed tasks
                 </Button>
             ) : null}

@@ -1,24 +1,32 @@
 import "../../App.css";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
+import {useStateIfMounted} from "use-state-if-mounted";
 
 
 function Registration(props) {
-
     let [name, upName] = useState()
     let [password, upPassword] = useState()
     let [statusUser, upStatusUser] = useState()
-    let createUser = (name, password) => {
-        if (name || password) {
-            props.createUser(name, password).then(response => {
-                if (response) {
-                    upStatusUser(response)
-                }
-                return null
-            })
+    let [disable, upDisable] = useState(false)
+    console.log(props)
+    useEffect(() => {
+        if(props.user) {
+            if (name && password) {
+                props.createUser(name, password)
+                upStatusUser("create User")
+                upDisable(false)
+            }
         }
-    }
+        if (name && password) {
+            props.createUser(name, password)
+            upStatusUser("create User")
+        }
+        return () => {
+            upDisable(false)
+        };
+    }, [disable]);
 
 
     return (
@@ -31,7 +39,7 @@ function Registration(props) {
                     </Form.Label>
                     <Col sm={10}>
                         <Form.Control type="text" onChange={(e) => upName(e.target.value)} placeholder="Name"/>
-                        {statusUser ? <h3 className="status">{statusUser}</h3>: null}
+                        {statusUser ? <h3 className="status">{statusUser}</h3> : null}
                     </Col>
                 </Form.Group>
 
@@ -40,13 +48,14 @@ function Registration(props) {
                         Password
                     </Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="password" onChange={(e) => upPassword(e.target.value)}  placeholder="Password"/>
+                        <Form.Control type="password" onChange={(e) => upPassword(e.target.value)} placeholder="Password"/>
                     </Col>
                 </Form.Group>
             </Form>
-                <Button variant="dark" onClick={() => {
-                    if(password && name) {createUser(name, password)}}}
-                >Create User</Button>
+            <Button variant="dark" disabled={disable} onClick={(e) => {
+                upDisable(true)
+            }}
+            >Create User</Button>
         </div>
     );
 }

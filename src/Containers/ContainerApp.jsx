@@ -36,19 +36,19 @@ class ContainerApp extends React.Component {
         if (!this.props.user) {
             return <div className="app">
                 <div className="loginButtons">
-                    <Button variant="dark" onClick={() => this.props.history.push('/Registration')} >Registration</Button>
-                    <Button variant="dark" onClick={() => this.props.history.push('/Login')}>Login</Button>
+                    <Button variant="dark" onClick={() => this.props.history.push('/registration')} >Registration</Button>
+                    <Button variant="dark" onClick={() => this.props.history.push('/login')}>Login</Button>
                 </div>
                 <Suspense fallback={<Spinner className='preloader' animation="grow"/>}>
-                    <Route path="/Login" render={() => <ContainerLogin/>}/>
-                    <Route path="/Registration" render={() => <ContainerRegistration/>}/>
+                    <Route path="/login" render={() => <ContainerLogin/>}/>
+                    <Route path="/registration" render={() => <ContainerRegistration/>}/>
                 </Suspense>
             </div>
         }
 
         return <div className="app">
             <Suspense fallback={<Spinner className="preloader" animation="grow"/>}>
-                <Redirect to="/Tasks"/>
+                <Redirect to="/tasks"/>
                 <App symbol={this.props.user._id} history={this.props.history} createNewTask={createNewTask} tasks={this.props.tasks}/>
             </Suspense>
         </div>

@@ -4,9 +4,21 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React, {useState} from "react";
 
 let Task = (props) => {
-    let [spinner, funClick] = useState(false)
+    let [spinner, spinnerChange] = useState(false)
     if (spinner) {
-        return <Spinner className="loader" animation="border" variant="dark"/>
+        return <Spinner className="loaderInputText" animation="border" variant="dark"/>
+    }
+    const preloader =  (e, type) => {
+        spinnerChange(true)
+        if (type) {
+            props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
+                spinnerChange(false)
+            })
+        } else if (!type) {
+            props.deleteTask(props._id, props.symbol)
+        } else {
+            spinnerChange(false)
+        }
     }
     return (
         <Container>
@@ -14,22 +26,12 @@ let Task = (props) => {
 
                 <Col>
                     <label>
-                        {props.taskChecked ? (<input
-                                defaultChecked={true}
-                                onClick={(e) => {
-                                    funClick(true)
-                                    props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
-                                        funClick(false)
-                                    })
-                                }} type="checkBox"/>
-                        ) : (<input
-                                onClick={(e) => {
-                                    funClick(true)
-                                    props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
-                                        funClick(false)
-                                    });
-                                }} type="checkBox"/>
-                        )}
+                        {props.taskChecked ? (<input defaultChecked={true}
+                                onClick={(e) => {preloader(e, true)}}
+                                type="checkBox"/>
+                        ) : (<input onClick={(e) => {preloader(e, true)}}
+                                    type="checkBox"/>)
+                        }
                         <span className={"pseudoBox"}></span>
                     </label>
                 </Col>
@@ -48,20 +50,13 @@ let Task = (props) => {
 
                 <Col>
                     <FontAwesomeIcon
-                        onClick={() => {
-                            funClick(true)
-                            props.deleteTask(props._id, props.symbol).then(response => {
-                                funClick(false)
-                            });
-                        }}
-                        className={"trashIcon"}
-                        icon={faTrashAlt}
-                    />
+                        onClick={() => {preloader(null, false)}}
+                        className="trashIcon"
+                        icon={faTrashAlt}/>
                 </Col>
 
             </Row>
         </Container>
     )
 }
-
 export default Task

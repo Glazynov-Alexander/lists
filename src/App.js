@@ -9,19 +9,19 @@ import {Button} from "react-bootstrap";
 function App(props) {
     let logOut = () => {
         localStorage.clear()
-        props.history.push('/Registration')
+        props.history.push('/registration')
         window.location.reload();
     }
 
     return (
-            <Route path="/Tasks" render={() => (
+            <Route path="/tasks" render={() => (
                 <div className="app">
                     <header>
                         <h1 className="titleApp">Todo list</h1>
                         <Button variant="dark" className="logOut" onClick={() => { logOut()} }>Log out</Button>
                     </header>
                     <main className="todoList">
-                        <InputText symbol={props.symbol} createNewTask={props.createNewTask}/>
+                        <InputText symbol={props.symbol} spinnerChange={props.spinnerChange} createNewTask={props.createNewTask}/>
 
                         {props.tasks.length !== 0 ? (
                             <div>
