@@ -12,15 +12,15 @@ const App = React.lazy(() => import("../App"))
 
 class ContainerApp extends React.Component {
     async componentDidMount() {
-        let auth = await JSON.parse(localStorage.getItem('user'))
+        let auth = await localStorage.getItem('user')
         if (!this.props.user && auth) {
-            await this.props.getUser(auth.name, auth.password)
+            await this.props.getUser('','', auth)
         }
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
-            this.props.getUser(this.props.user.name, this.props.user.password)
+            // this.props.getUser(localStorage.getItem('user') )
             this.props.getTasksLocal(this.props.user._id ? this.props.user._id : null);
         }
     }

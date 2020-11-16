@@ -8,16 +8,21 @@ function Login(props) {
     let [password, upPassword] = useState()
     let [statusUser, upStatusUser] = useState()
     let [disable, upDisable] = useState(false)
-    useEffect(() => {
-        if (name && password) {
-            props.getUser(name, password).then(response => {
-                if (response) {
-                    upStatusUser(response)
-                    upDisable(false)
-                }
-            })
+
+    function sd() {
+        upDisable(true)
+        if (!props.user && name !== undefined && password !== undefined) {
+            props.getUser(name, password, localStorage.getItem('user'))
+                .then(response => {
+                    if (response) {
+                        upStatusUser(response)
+                        upDisable(false)
+                    }
+                })
         }
-    }, [disable])
+
+    }
+
 
     return (
         <div className="inputText">
@@ -43,7 +48,7 @@ function Login(props) {
                 </Form.Group>
             </Form>
             <Button variant="dark" disabled={disable} onClick={() => {
-                upDisable(true)
+                sd()
             }}
             >Login</Button>
         </div>

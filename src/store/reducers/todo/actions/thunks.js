@@ -1,5 +1,5 @@
 import {createNewTask, getTasks, createNewUser} from "./actions";
-import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI} from "../../../../API/API";
+import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, othersGetUserAPI} from "../../../../API/API";
 
 const getTasksUniversal = (globalTasks, symbol) => {
     let tasks = globalTasks.data.tasks.filter(el => el.symbol === symbol)
@@ -24,7 +24,7 @@ export let getTasksLocal = (symbol) => async (dispatch) => {
     if (!globalTasks.data.tasks) {
         return globalTasks.data.status
     }
-    return  dispatch(getTasks(globalTasks.data.tasks));
+    return dispatch(getTasks(globalTasks.data.tasks));
 };
 
 export const checkedLocal = (checked, id, symbol) => async (dispatch) => {
@@ -37,15 +37,34 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
     dispatch(createNewTask(task.data))
 };
 
-export const getUser = (name, password) => async (dispatch) => {
-    let globalUsers = await getUserAPI(name, password)
-    if (!globalUsers.data.user ) {
+export const getUser = (name, password, token) => async (dispatch) => {
+    let globalUsers
+    if (!name && !password) {
+        globalUsers = await getUserAPI('', '', token)
+    }
+    else if(name && password) {
+        globalUsers = await getUserAPI(name, password, token)
+    }
 
+    if (!globalUsers.data.user) {
         return globalUsers.data.status
     }
-    localStorage.setItem('user', JSON.stringify(globalUsers.data.user[0]))
-    if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user[0]));
+    if(!localStorage.getItem('user')) {
+        localStorage.setItem('user', globalUsers.data.token.token)
+    }
+
+    if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user));
+
 };
+
+// export const othersGetUser = (name, password, token) => async (dispatch) => {
+//     let globalUsers = await othersGetUserAPI(name, password, token)
+//     if (!globalUsers.data.user ) {
+//         return globalUsers.data.status
+//     }
+//     localStorage.setItem('user', JSON.stringify(globalUsers.data.token))
+//     if (globalUsers.data) dispatch(createNewUser(globalUsers.data.user));
+// };
 
 
 export const createUser = (name, password) => async (dispatch) => {
@@ -53,9 +72,9 @@ export const createUser = (name, password) => async (dispatch) => {
     if (typeof a.data === "string") {
         return a.data
     } else if (!a.data.client) {
-        localStorage.setItem('user', JSON.stringify(a.data.user))
-         dispatch(createNewUser(a.data.user))
-        return  a.data.status
+        localStorage.setItem('user', a.data.token)
+        dispatch(createNewUser(a.data.user))
+        return a.data.status
     }
 
 };

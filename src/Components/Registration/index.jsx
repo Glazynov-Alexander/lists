@@ -10,23 +10,19 @@ function Registration(props) {
     let [password, upPassword] = useState()
     let [statusUser, upStatusUser] = useState()
     let [disable, upDisable] = useState(false)
-    console.log(props)
-    useEffect(() => {
-        if(props.user) {
-            if (name && password) {
-                props.createUser(name, password)
-                upStatusUser("create User")
-                upDisable(false)
-            }
-        }
-        if (name && password) {
+
+
+    function sd() {
+        upDisable(true)
+        if (!props.user && name !== undefined && password !== undefined) {
             props.createUser(name, password)
+            upName('')
+            upPassword('')
             upStatusUser("create User")
-        }
-        return () => {
             upDisable(false)
-        };
-    }, [disable]);
+        }
+
+    }
 
 
     return (
@@ -53,7 +49,7 @@ function Registration(props) {
                 </Form.Group>
             </Form>
             <Button variant="dark" disabled={disable} onClick={(e) => {
-                upDisable(true)
+                sd()
             }}
             >Create User</Button>
         </div>
