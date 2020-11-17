@@ -14,10 +14,14 @@ class ContainerApp extends React.Component {
     async componentDidMount() {
         let auth = await localStorage.getItem('user')
         if (!this.props.user && auth ) {
-            await this.props.getUser('', '', auth)
-        } if(auth && auth.indexOf('Bearer') !== 1) {
-            localStorage.clear()
+            await this.props.getUser(undefined, undefined, auth)
         }
+        // if(auth && auth.indexOf('Bearer') !== 1) {
+        //     debugger
+        //     this.props.history.go("/login")
+        //     localStorage.clear()
+        //
+        // }
 
     }
 

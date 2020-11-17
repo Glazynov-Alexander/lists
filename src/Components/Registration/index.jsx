@@ -1,5 +1,5 @@
 import "../../App.css";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
 
@@ -11,18 +11,17 @@ function Registration(props) {
     let [disable, upDisable] = useState(false)
 
 
-    let  sd = async () => {
+    let registers = useCallback(async () => {
         upDisable(true)
-        if (!props.user && name !== undefined && password !== undefined) {
+        if (!props.user && name && password !== undefined) {
             let response = await props.createUser(name, password)
-            upStatusUser(response)
 
-            upDisable(false)
+            if (response) {
+                upStatusUser(response)
+                upDisable(false)
+            }
         }
-
-
-    }
-
+    }, [props,name, password])
 
     return (
         <div className="inputText">
@@ -47,9 +46,7 @@ function Registration(props) {
                     </Col>
                 </Form.Group>
             </Form>
-            <Button variant="dark" disabled={disable} onClick={(e) => {
-                sd()
-            }}
+            <Button variant="dark" disabled={disable} onClick={registers}
             >Create User</Button>
         </div>
     );

@@ -4,9 +4,10 @@ import "../Components/TodoList/style.css";
 import {deleteTask, checkedLocal} from "../store/reducers/todo/actions/thunks.js";
 import TodoList from "../Components/TodoList";
 
+
 class ContainerTodoList extends React.Component {
     render() {
-        return <TodoList {...this.props} />;
+        return <TodoList {...this.props} />
     }
 }
 

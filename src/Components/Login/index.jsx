@@ -1,5 +1,5 @@
 import "../../App.css";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
 
@@ -9,16 +9,17 @@ function Login(props) {
     let [statusUser, upStatusUser] = useState()
     let [disable, upDisable] = useState(false)
 
-    let sd = () => {
+
+    let logins = useCallback(async () => {
         upDisable(true)
-        if (!props.user && name !== undefined && password !== undefined) {
-            upStatusUser("get user")
-            props.getUser(name, password, localStorage.getItem('user'))
+        if (!props.user && name && password !== undefined) {
+            let res = await props.getUser(name, password, localStorage.getItem('user'))
+            if (res) {
+                upStatusUser(res)
+                upDisable(false)
+            }
         }
-        upDisable(false)
-    }
-
-
+    }, [props, name, password])
     return (
         <div className="inputText">
             <h1>Log in</h1>
@@ -42,7 +43,7 @@ function Login(props) {
                     </Col>
                 </Form.Group>
             </Form>
-            <Button variant="dark" disabled={disable} onClick={() => sd()}
+            <Button variant="dark" disabled={disable} onClick={logins}
             >Login</Button>
         </div>
     );

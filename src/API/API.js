@@ -21,7 +21,6 @@ export let createTaskAPI = (textTask, symbol) => {
 }
 
 export let getTasksAPI = (symbol) => {
-
     Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
     return Axios.get(`/lists/get/tasks?symbol=${symbol}`)
 }

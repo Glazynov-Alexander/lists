@@ -32,17 +32,14 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
 
 export const getUser = (name, password, token) => async (dispatch) => {
     let globalUsers
-    if (!name && !password) {
-       return 'not get'
-    } else if (name && password) {
-        globalUsers = await getUserAPI(name, password, token)
-    }
+    globalUsers = await getUserAPI(name, password, token)
+
     if (!globalUsers.data.user) return globalUsers.data.status
 
     if (!localStorage.getItem('user')) {
         localStorage.setItem('user', globalUsers.data.token.token)
     }
-    if (globalUsers.data) return dispatch(createNewUser(globalUsers.data.user));
+    if (globalUsers.data)  dispatch(createNewUser(globalUsers.data.user));
 };
 
 
@@ -51,7 +48,6 @@ export const createUser = (name, password) => async (dispatch) => {
     if (typeof a.data.message === "string") {
         return a.data.message
     } else if (!a.data.client) {
-        debugger
         localStorage.setItem('user', a.data.token)
         dispatch(createNewUser(a.data.user))
         return a.data.status
