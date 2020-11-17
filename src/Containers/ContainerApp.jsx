@@ -13,22 +13,24 @@ const App = React.lazy(() => import("../App"))
 class ContainerApp extends React.Component {
     async componentDidMount() {
         let auth = await localStorage.getItem('user')
-        if (!this.props.user && auth) {
-            await this.props.getUser('','', auth)
+        if (!this.props.user && auth ) {
+            await this.props.getUser('', '', auth)
+        } if(auth && auth.indexOf('Bearer') !== 1) {
+            localStorage.clear()
         }
 
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
-            // this.props.getUser(localStorage.getItem('user') )
+         if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
             this.props.getTasksLocal(this.props.user._id ? this.props.user._id : null);
         }
     }
 
     render() {
         let createNewTask = async (elem, symbol) => {
-            if ( elem.target.value !== "") {
-                 await this.props.createNewTaskLocal(elem.target.value, symbol);
+            if (elem.target.value !== "") {
+                await this.props.createNewTaskLocal(elem.target.value, symbol);
                 elem.target.value = "";
             }
         };
@@ -36,7 +38,7 @@ class ContainerApp extends React.Component {
         if (!this.props.user) {
             return <div className="app">
                 <div className="loginButtons">
-                    <Button variant="dark" onClick={() => this.props.history.push('/registration')} >Registration</Button>
+                    <Button variant="dark" onClick={() => this.props.history.push('/registration')}>Registration</Button>
                     <Button variant="dark" onClick={() => this.props.history.push('/login')}>Login</Button>
                 </div>
                 <Suspense fallback={<Spinner className='preloader' animation="grow"/>}>

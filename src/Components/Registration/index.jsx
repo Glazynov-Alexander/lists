@@ -1,8 +1,7 @@
 import "../../App.css";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
-import {useStateIfMounted} from "use-state-if-mounted";
 
 
 function Registration(props) {
@@ -12,15 +11,15 @@ function Registration(props) {
     let [disable, upDisable] = useState(false)
 
 
-    function sd() {
+    let  sd = async () => {
         upDisable(true)
         if (!props.user && name !== undefined && password !== undefined) {
-            props.createUser(name, password)
-            upName('')
-            upPassword('')
-            upStatusUser("create User")
+            let response = await props.createUser(name, password)
+            upStatusUser(response)
+
             upDisable(false)
         }
+
 
     }
 

@@ -1,5 +1,5 @@
 import "../../App.css";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import {Button, Col, Row} from "react-bootstrap";
 
@@ -9,18 +9,13 @@ function Login(props) {
     let [statusUser, upStatusUser] = useState()
     let [disable, upDisable] = useState(false)
 
-    function sd() {
+    let sd = () => {
         upDisable(true)
         if (!props.user && name !== undefined && password !== undefined) {
+            upStatusUser("get user")
             props.getUser(name, password, localStorage.getItem('user'))
-                .then(response => {
-                    if (response) {
-                        upStatusUser(response)
-                        upDisable(false)
-                    }
-                })
         }
-
+        upDisable(false)
     }
 
 
@@ -47,9 +42,7 @@ function Login(props) {
                     </Col>
                 </Form.Group>
             </Form>
-            <Button variant="dark" disabled={disable} onClick={() => {
-                sd()
-            }}
+            <Button variant="dark" disabled={disable} onClick={() => sd()}
             >Login</Button>
         </div>
     );

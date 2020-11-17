@@ -1,16 +1,16 @@
 import {Col, Container, Row, Spinner} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
+import React, { useState} from "react";
 
 let Task = (props) => {
     let [spinner, spinnerChange] = useState(false)
-    if (spinner) {
-        return <Spinner className="loaderInputText" animation="border" variant="dark"/>
-    }
+    if (spinner) return <Spinner className="loaderInputText" animation="border" variant="dark"/>
+
     const preloader =  (e, type) => {
         spinnerChange(true)
         if (type) {
+            console.log(e.target.checked)
             props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
                 spinnerChange(false)
             })
@@ -20,6 +20,7 @@ let Task = (props) => {
             spinnerChange(false)
         }
     }
+
     return (
         <Container>
             <Row className="inputCheck">
