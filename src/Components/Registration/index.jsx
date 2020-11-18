@@ -15,12 +15,12 @@ function Registration(props) {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
             let response = await props.createUser(name, password)
-
             if (response) {
                 upStatusUser(response)
                 upDisable(false)
             }
         }
+
     }, [props,name, password])
 
     return (

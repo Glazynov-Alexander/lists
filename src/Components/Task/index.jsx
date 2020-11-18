@@ -22,7 +22,6 @@ let Task = (props) => {
     return (
         <Container>
             <Row className="inputCheck">
-
                 <Col>
                     <label>
                         {props.taskChecked ? (<input defaultChecked={true}

@@ -16,7 +16,7 @@ class ContainerApp extends React.Component {
         if (!this.props.user && auth ) {
             await this.props.getUser(undefined, undefined, auth)
         }
-        if(auth && auth.indexOf('Bearer') !== 1) {
+        if(auth && auth.includes('Bearer') === false) {
             this.props.history.push("/registration")
             localStorage.clear()
         }
