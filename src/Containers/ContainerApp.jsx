@@ -16,13 +16,10 @@ class ContainerApp extends React.Component {
         if (!this.props.user && auth ) {
             await this.props.getUser(undefined, undefined, auth)
         }
-        // if(auth && auth.indexOf('Bearer') !== 1) {
-        //     debugger
-        //     this.props.history.go("/login")
-        //     localStorage.clear()
-        //
-        // }
-
+        if(auth && auth.indexOf('Bearer') !== 1) {
+            this.props.history.push("/registration")
+            localStorage.clear()
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
