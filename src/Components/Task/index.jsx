@@ -24,16 +24,15 @@ let Task = (props) => {
             <Row className="inputCheck">
                 <Col>
                     <label>
-                        {props.taskChecked ? (<input defaultChecked={true}
-                                                     onClick={(e) => {
-                                                         preloader(e, true)
-                                                     }}
-                                                     type="checkBox"/>
+                        {props.taskChecked ? (
+                            <input defaultChecked={true}
+                                   onClick={(e) => {
+                                       preloader(e, true)
+                                   }}
+                                   type="checkBox"/>
                         ) : (<input onClick={(e) => {
                             preloader(e, true)
-                        }}
-                                    type="checkBox"/>)
-                        }
+                        }} type="checkBox"/>)}
                         <span className={"pseudoBox"}></span>
                     </label>
                 </Col>

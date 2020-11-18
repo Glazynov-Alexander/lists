@@ -1,5 +1,5 @@
 import {createNewTask, getTasks, createNewUser} from "./actions";
-import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI} from "../../../../API/API";
+import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, tasksCheckedAPI} from "../../../../API/API";
 
 
 export const deleteTask = (id, symbol) => async (dispatch) => {
@@ -16,12 +16,15 @@ export const deleteTasksCompleted = (symbol) => async (dispatch) => {
 export let getTasksLocal = (symbol) => async (dispatch) => {
     let globalTasks = await getTasksAPI(symbol)
     if (!globalTasks.data.tasks) return globalTasks.data.status
-
     return dispatch(getTasks(globalTasks.data.tasks));
 };
 
-export const checkedLocal = (checked, id, symbol) => async (dispatch) => {
+export const checkedLocal = (checked, id) => async (dispatch) => {
     let globalTasks = await checkUpdateAPI(id, checked)
+    return dispatch(getTasks(globalTasks.data.tasks));
+};
+export const tasksCheckeds = (checked) => async (dispatch) => {
+    let globalTasks = await tasksCheckedAPI(checked)
     return dispatch(getTasks(globalTasks.data.tasks));
 };
 

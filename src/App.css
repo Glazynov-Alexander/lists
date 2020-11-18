@@ -114,3 +114,11 @@ input[type=checkbox]:checked + .pseudoBox::before {
 .status {
     background: red;
 }
+
+.footer p {
+    cursor: pointer;
+}
+
+.footer p:hover {
+    color: white;
+}

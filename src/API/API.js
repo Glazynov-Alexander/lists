@@ -5,10 +5,7 @@ export let deleteTaskAPI = (id) => {
     return Axios.delete(`/lists/delete?id=${id}`)
 }
 
-// let axios = Axios.create({
-//     // baseURL: "http://127.0.0.1:1234",
-//     headers: "Authorization",
-// })
+
 
 Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 export let deleteTasksAPI = (symbol) => {
@@ -27,6 +24,9 @@ export let getTasksAPI = (symbol) => {
 
 export let checkUpdateAPI = (id, checked) => {
     return Axios.put("/lists/update/tasks", {id, checked})
+}
+export let tasksCheckedAPI = (checked) => {
+    return Axios.put("/lists/update/checkeds", {checked})
 }
 
 

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Footer from "../Components/Footer";
 
 import {changeType} from "../store/reducers/todo/actions/actions";
-import {deleteTasksCompleted} from "../store/reducers/todo/actions/thunks.js";
+import {deleteTasksCompleted, tasksCheckeds} from "../store/reducers/todo/actions/thunks.js";
 
 class ContainerFooter extends React.Component {
     render() {
@@ -15,4 +15,4 @@ class ContainerFooter extends React.Component {
 }
 
 let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user});
-export default connect(mapStateToProps, {deleteTasksCompleted, changeType})(ContainerFooter);
+export default connect(mapStateToProps, {deleteTasksCompleted, changeType, tasksCheckeds})(ContainerFooter);
