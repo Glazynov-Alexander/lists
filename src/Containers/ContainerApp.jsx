@@ -12,7 +12,7 @@ import ContainerLogin from "./ContainerLogin";
 import ContainerRegistration from "./ContainerRegistration";
 import {Route} from "react-router-dom";
 import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
-import {Spinner} from "react-bootstrap";
+import {NavLink, Spinner} from "react-bootstrap";
 
 
 class ContainerApp extends React.Component {
@@ -33,7 +33,7 @@ class ContainerApp extends React.Component {
     }
 
     render() {
-        if (!this.props.auth) return <Spinner className='preloader' animation="grow"/>
+
 
         return (<div className={"app"}>
             <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
