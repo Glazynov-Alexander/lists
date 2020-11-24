@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens} from "../store/reducers/todo/actions/thunks.js";
+import {authUser} from "../store/reducers/todo/actions/actions.js";
 import {withRouter} from "react-router";
 
 import '../App.css'
@@ -12,7 +13,6 @@ import ContainerLogin from "./ContainerLogin";
 import ContainerRegistration from "./ContainerRegistration";
 import {Route} from "react-router-dom";
 import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
-import {NavLink, Spinner} from "react-bootstrap";
 
 
 class ContainerApp extends React.Component {
@@ -22,7 +22,9 @@ class ContainerApp extends React.Component {
             localStorage.removeItem("user")
         }
         if (!this.props.user && auth) {
+
             await this.props.getUser(undefined, undefined, auth)
+            this.props.authUser(true)
         }
     }
 
@@ -32,9 +34,8 @@ class ContainerApp extends React.Component {
         }
     }
 
+
     render() {
-
-
         return (<div className={"app"}>
             <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
             <Route path={"/login"} render={() => AuthHoc(ContainerLogin, this.props)}/>
@@ -47,6 +48,6 @@ class ContainerApp extends React.Component {
 let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user, auth: state.todo.auth});
 let ContainerAppCompose = compose(
     withRouter,
-    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens})
+    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, authUser})
 )(ContainerApp)
 export default ContainerAppCompose

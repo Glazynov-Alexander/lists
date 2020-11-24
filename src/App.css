@@ -123,3 +123,6 @@ input[type=checkbox]:checked + .pseudoBox::before {
     color: black;
 }
 
+.nav-link {
+    padding: 0;
+}

@@ -1,16 +1,15 @@
-import {Button} from "react-bootstrap";
+import {Button, NavLink} from "react-bootstrap";
 import React from "react";
 
 function ButtonsAuth(props) {
     if (props.location.pathname !== "/tasks") {
         //если в урле /tasks эти кнопки не отображаются
         return <div className={"loginButtons"}>
-            <Button variant="dark" disabled={!props.auth} onClick={() => props.history.push('/tasks')}>enter</Button>
-            <Button variant="dark" disabled={props.auth} onClick={() => props.history.push('/registration')}>Registration</Button>
-            <Button variant="dark" disabled={props.auth} onClick={() => props.history.push('/login')}>Login</Button>
+            <NavLink href="/tasks"><Button variant="dark" disabled={!props.auth} >enter</Button></NavLink>
+            <NavLink href="/registration"><Button variant="dark" disabled={props.auth} >Registration</Button></NavLink>
+            <NavLink href="/login"><Button variant="dark" disabled={props.auth} >Login</Button></NavLink>
         </div>
     }
     return null
 }
-
 export default ButtonsAuth
