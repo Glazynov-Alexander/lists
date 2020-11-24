@@ -1,17 +1,17 @@
 import Axios from "axios";
 
 
+Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
+
+
+//tasks
 export let deleteTaskAPI = (id) => {
     return Axios.delete(`/lists/delete?id=${id}`)
 }
 
-
-
-Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 export let deleteTasksAPI = (symbol) => {
     return Axios.delete(`/lists/tasks/delete?symbol=${symbol}`)
 }
-
 
 export let createTaskAPI = (textTask, symbol) => {
     return Axios.post("/lists/create/tasks", {taskChecked: false, textTask, symbol})
@@ -30,6 +30,7 @@ export let tasksCheckedAPI = (checked) => {
 }
 
 
+//user
 export let createUserAPI = (name, password) => {
     return Axios.post("/auth/registration", {name, password})
 }
@@ -41,4 +42,10 @@ export let getUserAPI = async (name, password, token) => {
 
 export let othersGetUserAPI = (name, password, token) => {
     return Axios.get(`/auth/login`, {params: {"name": name, "password": password}})
+}
+
+
+//tokens
+export let refreshTokensAPI = () => {
+    return Axios.post(`/auth/refresh-tokens`, {refresh: localStorage.getItem('refresh')})
 }

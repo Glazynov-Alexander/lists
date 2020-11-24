@@ -1,67 +1,52 @@
-import React, {Suspense} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {createNewTaskLocal, getTasksLocal, createUser, getUser} from "../store/reducers/todo/actions/thunks.js";
-import {Redirect, Route, withRouter} from "react-router";
-import {Button, Spinner} from "react-bootstrap";
+import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens} from "../store/reducers/todo/actions/thunks.js";
+import {withRouter} from "react-router";
+
 import '../App.css'
 import {compose} from "redux";
+import {AppHoc} from "../Hocs/AppHoc";
+import App from "../App";
+import {AuthHoc} from "../Hocs/AuthHoc";
+import ContainerLogin from "./ContainerLogin";
+import ContainerRegistration from "./ContainerRegistration";
+import {Route} from "react-router-dom";
+import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
+import {Spinner} from "react-bootstrap";
 
-const ContainerRegistration = React.lazy(() => import("./ContainerRegistration"))
-const ContainerLogin = React.lazy(() => import("./ContainerLogin"))
-const App = React.lazy(() => import("../App"))
 
 class ContainerApp extends React.Component {
     async componentDidMount() {
         let auth = await localStorage.getItem('user')
-        if (!this.props.user && auth ) {
-            await this.props.getUser(undefined, undefined, auth)
+        if (auth && auth.includes('Bearer') === false) {
+            localStorage.removeItem("user")
         }
-        if(auth && auth.includes('Bearer') === false) {
-            this.props.history.push("/registration")
-            localStorage.clear()
+        if (!this.props.user && auth) {
+            await this.props.getUser(undefined, undefined, auth)
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-         if (prevProps.user === null && this.props.user !== null && prevProps.user !== this.props.user.name) {
+        if (!prevProps.user && this.props.user && prevProps.user !== this.props.user.name) {
             this.props.getTasksLocal(this.props.user._id ? this.props.user._id : null);
         }
     }
 
     render() {
-        let createNewTask = async (elem, symbol) => {
-            if (elem.target.value !== "") {
-                await this.props.createNewTaskLocal(elem.target.value, symbol);
-                elem.target.value = "";
-            }
-        };
+        if (!this.props.auth) return <Spinner className='preloader' animation="grow"/>
 
-        if (!this.props.user) {
-            return <div className="app">
-                <div className="loginButtons">
-                    <Button variant="dark" onClick={() => this.props.history.push('/registration')}>Registration</Button>
-                    <Button variant="dark" onClick={() => this.props.history.push('/login')}>Login</Button>
-                </div>
-                <Suspense fallback={<Spinner className='preloader' animation="grow"/>}>
-                    <Route path="/login" render={() => <ContainerLogin/>}/>
-                    <Route path="/registration" render={() => <ContainerRegistration/>}/>
-                </Suspense>
-            </div>
-        }
-
-        return <div className="app">
-            <Suspense fallback={<Spinner className="preloader" animation="grow"/>}>
-                <Redirect to="/tasks"/>
-                <App symbol={this.props.user._id} history={this.props.history} createNewTask={createNewTask} tasks={this.props.tasks}/>
-            </Suspense>
-        </div>
-
+        return (<div className={"app"}>
+            <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
+            <Route path={"/login"} render={() => AuthHoc(ContainerLogin, this.props)}/>
+            <Route path={"/registration"} render={() => AuthHoc(ContainerRegistration, this.props)}/>
+            <Route path={"/tasks"} render={() => AppHoc(App, this.props)}/>
+        </div>)
     }
 }
 
-let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user});
+let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user, auth: state.todo.auth});
 let ContainerAppCompose = compose(
     withRouter,
-    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser})
+    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens})
 )(ContainerApp)
 export default ContainerAppCompose

@@ -93,7 +93,7 @@ input[type=checkbox]:checked + .pseudoBox::before {
     height: 200px;
     margin: auto;
     margin-top: 100px;
-    margin-left: 150px;
+    margin-left: 850px;
 }
 
 .loader {
@@ -102,13 +102,13 @@ input[type=checkbox]:checked + .pseudoBox::before {
 }
 
 .loaderInputText {
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 15px;
+    margin-left: 8px;
 }
 
 .loginButtons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .status {
@@ -120,5 +120,6 @@ input[type=checkbox]:checked + .pseudoBox::before {
 }
 
 .footer p:hover {
-    color: white;
+    color: black;
 }
+

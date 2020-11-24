@@ -1,23 +1,19 @@
 import {Col, Container, Row, Spinner} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 
 let Task = (props) => {
     let [spinner, spinnerChange] = useState(false)
-
-    const preloader = (e, type) => {
+    let preloader = useCallback((e) => {
         spinnerChange(true)
-        if (type) {
-            props.checkedLocal(e.target.checked, props._id, props.symbol).then(response => {
-                spinnerChange(false)
-            })
-        } else if (!type) {
-            props.deleteTask(props._id, props.symbol)
+        if (e.target.tagName === "INPUT") {
+            props.checkedLocal(e.target.checked, props._id, props.symbol)
         } else {
-            spinnerChange(false)
+            props.deleteTask(props._id, props.symbol)
         }
-    }
+    }, [props])
+
     if (spinner) return <Spinner className="loaderInputText" animation="border" variant="dark"/>
     return (
         <Container>
@@ -26,13 +22,9 @@ let Task = (props) => {
                     <label>
                         {props.taskChecked ? (
                             <input defaultChecked={true}
-                                   onClick={(e) => {
-                                       preloader(e, true)
-                                   }}
+                                   onClick={preloader}
                                    type="checkBox"/>
-                        ) : (<input onClick={(e) => {
-                            preloader(e, true)
-                        }} type="checkBox"/>)}
+                        ) : (<input onClick={preloader} type="checkBox"/>)}
                         <span className={"pseudoBox"}></span>
                     </label>
                 </Col>
@@ -51,13 +43,10 @@ let Task = (props) => {
 
                 <Col>
                     <FontAwesomeIcon
-                        onClick={() => {
-                            preloader(null, false)
-                        }}
+                        onClick={preloader}
                         className="trashIcon"
                         icon={faTrashAlt}/>
                 </Col>
-
             </Row>
         </Container>
     )

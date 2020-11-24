@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Buttons from "../Buttons";
+import Buttons from "../Buttons/ButtonsFooter";
 
 function Footer({tasks, deleteTasks, tasksCheckeds}) {
     let notFinishTasks = tasks.filter((elem) => elem.taskChecked === false);

@@ -3,26 +3,25 @@ import React from "react";
 import ContainerFooter from "./Containers/ContainerFooter";
 import InputText from "./Components/InputText/";
 import ContainerTodoList from "./Containers/ContainerTodoList.jsx";
-import {Route} from "react-router";
-import {Button} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
 
 function App(props) {
     let logOut = () => {
-        localStorage.clear()
+        localStorage.removeItem('user')
         props.history.push('/registration')
         window.location.reload();
     }
+    if(!props.user) {
+        return <Spinner className='preloader' animation="grow"/>
+    }
 
-    return (
-            <Route path="/tasks" render={() => (
-                <div className="app">
+    return (<div className="app">
                     <header>
                         <h1 className="titleApp">Todo list</h1>
                         <Button variant="dark" className="logOut" onClick={() => { logOut()} }>Log out</Button>
                     </header>
                     <main className="todoList">
-                        <InputText symbol={props.symbol} spinnerChange={props.spinnerChange} createNewTask={props.createNewTask}/>
-
+                        <InputText symbol={props.user._id} spinnerChange={props.spinnerChange} createNewTask={props.createNewTaskLocal}/>
                         {props.tasks.length !== 0 ? (
                             <div>
                                 <ContainerTodoList/>
@@ -31,7 +30,6 @@ function App(props) {
                         ) : null}
                     </main>
                 </div>
-            )}/>
     );
 }
 

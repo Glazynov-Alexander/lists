@@ -1,9 +1,10 @@
-let initialState = {tasks: [], typeList: "all", user: null , spinner: null};
+let initialState = {tasks: [], typeList: "all", user: null , auth: null};
 
 const CREATE_NEW_USER = "CREATE_NEW_USER";
 const CREATE_NEW_TASK = "CREATE_NEW_TASK";
 const GET_TASKS = "GET_TASKS";
 const TYPE = "TYPE";
+const AUTH_USER = "AUTH_USER";
 
 let TodoReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +22,9 @@ let TodoReducer = (state = initialState, action) => {
 
         case CREATE_NEW_USER : {
             return {...state, user: {...action.user}}
+        }
+        case AUTH_USER : {
+            return {...state, auth: action.auth}
         }
 
         default:

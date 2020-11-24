@@ -14,7 +14,6 @@ function TodoList(props) {
         tasks = props.tasks;
     }
 
-
     return (
         <Modal.Body className="scroll">
             {tasks.map((el) => {
