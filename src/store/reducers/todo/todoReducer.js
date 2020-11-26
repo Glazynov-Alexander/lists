@@ -7,6 +7,7 @@ const TYPE = "TYPE";
 const AUTH_USER = "AUTH_USER";
 const UPDATE_TASK = "UPDATE_TASK";
 const DELETE_TASK = "DELETE_TASK";
+const DELETE_TASKS_COMPLETED = "DELETE_TASKS_COMPLETED";
 
 
 const todoReducer = (state = initialState, action) => {
@@ -42,6 +43,9 @@ const todoReducer = (state = initialState, action) => {
         }
         case DELETE_TASK : {
             return {...state,tasks: state.tasks.filter(e => e._id !== action.id)}
+        }
+        case DELETE_TASKS_COMPLETED : {
+            return {...state,tasks: state.tasks.filter(e => e.taskChecked !== action.check)}
         }
 
 

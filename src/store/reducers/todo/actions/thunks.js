@@ -1,4 +1,4 @@
-import {createNewTask, getTasks, createNewUser, authUser, upTasks, deleteTaskAC} from "./actions";
+import {createNewTask, getTasks, createNewUser, authUser, upTasks, deleteTaskAC, deleteTasksCompletedAC} from "./actions";
 import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, tasksCheckedAPI, refreshTokensAPI, tokenAuthorization} from "../../../../API/API";
 
 export const deleteTask = (id, symbol) => async (dispatch) => {
@@ -9,7 +9,7 @@ export const deleteTask = (id, symbol) => async (dispatch) => {
 
 export const deleteTasksCompleted = (symbol) => async (dispatch) => {
     const globalTasks = await deleteTasksAPI(symbol)
-    return dispatch(getTasks(globalTasks.data.tasks));
+    await dispatch(deleteTasksCompletedAC(globalTasks.data.taskChecked))
 };
 
 export const getTasksLocal = (symbol) => async (dispatch) => {

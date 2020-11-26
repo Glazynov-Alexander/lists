@@ -7,5 +7,6 @@ export const changeType = (text) => ({type: "TYPE", text});
 export const authUser = (auth) => ({type: "AUTH_USER", auth});
 export const upTasks = (id, change) => ({type: "UPDATE_TASK", id, change});
 export const deleteTaskAC = (id) => ({type: "DELETE_TASK", id});
+export const deleteTasksCompletedAC = (check) => ({type: "DELETE_TASKS_COMPLETED", check});
 
 
