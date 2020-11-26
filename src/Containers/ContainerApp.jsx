@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens} from "../store/reducers/todo/actions/thunks.js";
+import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, logOutUse,loginAuto} from "../store/reducers/todo/actions/thunks.js";
 import {authUser} from "../store/reducers/todo/actions/actions.js";
 import {withRouter} from "react-router";
 
@@ -17,25 +17,16 @@ import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
 
 class ContainerApp extends React.Component {
     async componentDidMount() {
-        let auth = await localStorage.getItem('user')
-        if (auth && auth.includes('Bearer') === false) {
-            localStorage.removeItem("user")
+        if (this.props.auth && this.props.auth.includes('Bearer') === false) {
+            this.props.authUser("")
         }
-        if (!this.props.user && auth) {
-
-            await this.props.getUser(undefined, undefined, auth)
-            this.props.authUser(true)
+        if (!this.props.user && !this.props.auth) {
+           await this.props.loginAuto()
         }
     }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!prevProps.user && this.props.user && prevProps.user !== this.props.user.name) {
-            this.props.getTasksLocal(this.props.user._id ? this.props.user._id : null);
-        }
-    }
-
 
     render() {
+
         return (<div className={"app"}>
             <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
             <Route path={"/login"} render={() => AuthHoc(ContainerLogin, this.props)}/>
@@ -48,6 +39,6 @@ class ContainerApp extends React.Component {
 let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user, auth: state.todo.auth});
 let ContainerAppCompose = compose(
     withRouter,
-    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, authUser})
+    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, authUser, logOutUse, loginAuto})
 )(ContainerApp)
 export default ContainerAppCompose

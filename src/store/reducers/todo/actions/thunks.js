@@ -1,42 +1,41 @@
-import {createNewTask, getTasks, createNewUser, authUser} from "./actions";
-import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, tasksCheckedAPI, refreshTokensAPI} from "../../../../API/API";
-
+import {createNewTask, getTasks, createNewUser, authUser, upTasks, deleteTaskAC} from "./actions";
+import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, tasksCheckedAPI, refreshTokensAPI, tokenAuthorization} from "../../../../API/API";
 
 export const deleteTask = (id, symbol) => async (dispatch) => {
-    let globalTasks = await deleteTaskAPI(id, symbol)
-    dispatch(getTasks(globalTasks.data.tasks));
+    const globalTasks = await deleteTaskAPI(id, symbol)
+    await dispatch(deleteTaskAC(globalTasks.data.id))
     return globalTasks.data
 };
 
 export const deleteTasksCompleted = (symbol) => async (dispatch) => {
-    let globalTasks = await deleteTasksAPI(symbol)
+    const globalTasks = await deleteTasksAPI(symbol)
     return dispatch(getTasks(globalTasks.data.tasks));
 };
 
-export let getTasksLocal = (symbol) => async (dispatch) => {
-    let globalTasks = await getTasksAPI(symbol)
+export const getTasksLocal = (symbol) => async (dispatch) => {
+    const globalTasks = await getTasksAPI(symbol)
     if (!globalTasks.data.tasks) return globalTasks.data.status
     return dispatch(getTasks(globalTasks.data.tasks));
 };
 
 export const checkedLocal = (checked, id) => async (dispatch) => {
-    let globalTasks = await checkUpdateAPI(id, checked)
-    return dispatch(getTasks(globalTasks.data.tasks));
+    const globalTasks = await checkUpdateAPI(id, checked)
+    return dispatch(upTasks(globalTasks.data.task.id, globalTasks.data.task.taskChecked))
 };
 
 export const tasksCheckeds = (checked) => async (dispatch) => {
-    let globalTasks = await tasksCheckedAPI(checked)
+    const globalTasks = await tasksCheckedAPI(checked)
     return dispatch(getTasks(globalTasks.data.tasks));
 };
 
 export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
-    let task = await createTaskAPI(textTask, symbol)
+    const task = await createTaskAPI(textTask, symbol)
     dispatch(createNewTask(task.data))
+    return task
 };
 
 export const getUser = (name, password, token) => async (dispatch) => {
     let globalUsers
-
     globalUsers = await getUserAPI(name, password, token)
     if (!globalUsers.data.user) {
         return globalUsers.data.status
@@ -45,16 +44,16 @@ export const getUser = (name, password, token) => async (dispatch) => {
         localStorage.setItem('user', globalUsers.data.tokens.token)
         localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
     }
-        await dispatch(authUser(true))
-         dispatch(createNewUser(globalUsers.data.user));
-
+    dispatch(authUser(localStorage.getItem('user')))
+    dispatch(createNewUser(globalUsers.data.user));
+    return globalUsers.data
 };
 
 
 export const createUser = (name, password) => async (dispatch) => {
-    let response = await createUserAPI(name, password)
-    if (typeof response.data.message === "string") {
-        return response.data.message
+    const response = await createUserAPI(name, password)
+    if (!response.data.user) {
+        return response.data.status
     } else if (!response.data.client) {
         localStorage.setItem('user', response.data.token.token)
         localStorage.setItem('refresh', response.data.token.refreshToken)
@@ -66,10 +65,27 @@ export const createUser = (name, password) => async (dispatch) => {
 };
 
 export const refreshTokens = () => async (dispatch) => {
-    let response = await refreshTokensAPI()
+    const response = await refreshTokensAPI()
     window.location.replace('/tasks');
     localStorage.setItem('user', response.data.token)
     localStorage.setItem('refresh', response.data.refreshToken)
+};
+
+export const logOutUse = () => async (dispatch) => {
+    dispatch(authUser(""))
+    localStorage.removeItem("user")
+};
+
+export const loginAuto = () => async (dispatch) => {
+    const token = localStorage.getItem('user')
+    if (token) {
+        dispatch(authUser(token))
+        const result = await tokenAuthorization(token)
+        dispatch(createNewUser(result.data.user));
+    } else {
+        return "not token"
+    }
+
 };
 
 

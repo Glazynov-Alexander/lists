@@ -8,10 +8,11 @@ let Task = (props) => {
     let preloader = useCallback((e) => {
         spinnerChange(true)
         if (e.target.tagName === "INPUT") {
-            props.checkedLocal(e.target.checked, props._id, props.symbol)
+             props.checkedLocal(e.target.checked, props._id, props.symbol)
         } else {
             props.deleteTask(props._id, props.symbol)
         }
+
     }, [props])
 
     if (spinner) return <Spinner className="loaderInputText" animation="border" variant="dark"/>

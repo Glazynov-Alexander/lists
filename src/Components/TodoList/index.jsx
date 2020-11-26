@@ -1,21 +1,33 @@
-import React from "react";
+import React, {useMemo} from "react";
 import "./style.css";
 
-import {Modal} from "react-bootstrap";
+import {ListGroupItem} from "react-bootstrap";
 import Task from "../Task";
 
 function TodoList(props) {
-    let tasks = [];
-    if (props.typeList === "completed") {
-        tasks = props.tasks.filter((elem) => elem.taskChecked === true);
-    } else if (props.typeList === "todo") {
-        tasks = props.tasks.filter((elem) => elem.taskChecked === false);
-    } else if (props.typeList === "all") {
-        tasks = props.tasks;
-    }
+    // let tasks = [];
+
+
+    let tasks = useMemo(() => {
+        switch (props.typeList) {
+            case "all": {
+                 return props.tasks;
+            }
+            case "completed": {
+                return  props.tasks.filter((elem) => elem.taskChecked === true);
+            }
+            case "todo": {
+                return props.tasks.filter((elem) => elem.taskChecked === false);
+            }
+            default : {
+                return  props.tasks
+            }
+        }
+    }, [props])
 
     return (
-        <Modal.Body className="scroll">
+        <ListGroupItem className="scroll">
+
             {tasks.map((el) => {
                 if (!el) return null;
                 else if (props.user._id === el.symbol) {
@@ -25,7 +37,7 @@ function TodoList(props) {
                 }
                 return null
             })}
-        </Modal.Body>
+        </ListGroupItem>
     );
 }
 

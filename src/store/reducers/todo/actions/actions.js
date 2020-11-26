@@ -5,4 +5,7 @@ export const createNewTask = (newTask) => ({type: "CREATE_NEW_TASK", newTask});
 export const getTasks = (tasks) => ({type: "GET_TASKS", tasks});
 export const changeType = (text) => ({type: "TYPE", text});
 export const authUser = (auth) => ({type: "AUTH_USER", auth});
+export const upTasks = (id, change) => ({type: "UPDATE_TASK", id, change});
+export const deleteTaskAC = (id) => ({type: "DELETE_TASK", id});
+
 

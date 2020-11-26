@@ -1,40 +1,39 @@
 import "../../App.css";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import Form from "react-bootstrap/Form";
-import {Spinner} from "react-bootstrap";
+import {Alert, Spinner} from "react-bootstrap";
 
 function InputText({createNewTask, symbol}) {
     let [spinner, spinnerChange] = useState(false)
-    let [error, searchError] = useState("")
-    let [text, changeText] = useState("")
+    let [error, changeError] = useState("")
 
-    let preloader = useCallback((e) => {
+    let preloader = useCallback(async (e) => {
         spinnerChange(true)
-        if (e.target.tagName === "INPUT" && text.length < 20) {
-            if (symbol) createNewTask(e.target.value, symbol)
+        if (e.target.tagName === "INPUT"
+            && error.length <= 20
+            && error.length >= 3
+            && e.code === 'Enter') {
+            if (symbol) {
+                await createNewTask(e.target.value, symbol)
+            }
         } else {
             spinnerChange(false)
         }
+    }, [error, symbol, createNewTask])
 
-    }, [text, symbol, createNewTask])
-
-    useEffect(() => {
-        text.length < 20 ? searchError("") : searchError("error max length 20")
-    }, [text])
     if (spinner) return <Spinner className="loaderInputText" animation="border" variant="dark"/>
 
     return (
         <div className="inputText">
             <Form.Control
                 className={"rounded-0 inputTodo border-top-0 border-right-0 border-left-0"}
-                onKeyDown={(e) => {
-                    if (e.code === 'Enter') preloader(e)
-                }}
+                onKeyDown={preloader}
                 placeholder="enter your task"
-                value={text}
-                onChange={e => changeText(e.target.value)}
+                onChange={e => changeError(e.target.value)}
             />
-            {error ? <h1 className="status">{error}</h1> : null}
+            {error.length > 20 || (error.length < 3 && error.length > 0) ? <Alert variant={"danger"}>{error.length > 20
+                ? "error max length 20"
+                : error.length < 3 && error.length > 0 ? "error min length 3" : null}</Alert> : null}
         </div>
     );
 }

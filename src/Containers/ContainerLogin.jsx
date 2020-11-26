@@ -10,7 +10,7 @@ class ContainerLogin extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({user: state.todo.user});
+let mapStateToProps = (state) => ({user: state.todo.user ,auth: state.todo.auth});
 
 
 export default connect(mapStateToProps, {getUser})(ContainerLogin);
