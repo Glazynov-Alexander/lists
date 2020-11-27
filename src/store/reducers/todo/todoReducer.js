@@ -6,6 +6,7 @@ const GET_TASKS = "GET_TASKS";
 const TYPE = "TYPE";
 const AUTH_USER = "AUTH_USER";
 const UPDATE_TASK = "UPDATE_TASK";
+const UPDATE_TASKS_COMPLETED = "UPDATE_TASKS_COMPLETED";
 const DELETE_TASK = "DELETE_TASK";
 const DELETE_TASKS_COMPLETED = "DELETE_TASKS_COMPLETED";
 
@@ -27,6 +28,16 @@ const todoReducer = (state = initialState, action) => {
             return {
                 ...state, tasks: state.tasks.map(el => {
                     if (el._id === action.id) {
+                        return {...el, taskChecked: action.change}
+                    }
+                    return {...el}
+                })
+            };
+        }
+        case UPDATE_TASKS_COMPLETED: {
+            return {
+                ...state, tasks: state.tasks.map(el => {
+                    if (el._id !== action.change) {
                         return {...el, taskChecked: action.change}
                     }
                     return {...el}

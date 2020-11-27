@@ -13,11 +13,11 @@ export const deleteTaskAPI = (id) => {
 }
 
 export const deleteTasksAPI = (symbol) => {
-    return Axios.delete(`/lists/tasks/delete?symbol=${symbol}`)
+    return Axios.delete(`/lists/tasks/deletes?symbol=${symbol}`)
 }
 
 export const createTaskAPI = (textTask, symbol) => {
-    return Axios.post("/lists/create/tasks", {taskChecked: false, textTask, symbol})
+    return Axios.post("/lists/task/create", {taskChecked: false, textTask, symbol})
 }
 
 export const getTasksAPI = (symbol) => {
@@ -26,10 +26,10 @@ export const getTasksAPI = (symbol) => {
 }
 
 export const checkUpdateAPI = (id, checked) => {
-    return Axios.put("/lists/update/tasks", {id, checked})
+    return Axios.put("/lists/tasks/update", {id, checked})
 }
 export const tasksCheckedAPI = (checked) => {
-    return Axios.put("/lists/update/checkeds", {checked})
+    return Axios.put("/lists/tasks/updates", {checked})
 }
 
 

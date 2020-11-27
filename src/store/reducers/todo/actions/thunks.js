@@ -1,5 +1,25 @@
-import {createNewTask, getTasks, createNewUser, authUser, upTasks, deleteTaskAC, deleteTasksCompletedAC} from "./actions";
-import {checkUpdateAPI, createTaskAPI, createUserAPI, deleteTaskAPI, deleteTasksAPI, getTasksAPI, getUserAPI, tasksCheckedAPI, refreshTokensAPI, tokenAuthorization} from "../../../../API/API";
+import {
+    createNewTask,
+    getTasks,
+    createNewUser,
+    authUser,
+    upTasks,
+    deleteTaskAC,
+    deleteTasksCompletedAC,
+    upTasksCompleted
+} from "./actions";
+import {
+    checkUpdateAPI,
+    createTaskAPI,
+    createUserAPI,
+    deleteTaskAPI,
+    deleteTasksAPI,
+    getTasksAPI,
+    getUserAPI,
+    tasksCheckedAPI,
+    refreshTokensAPI,
+    tokenAuthorization
+} from "../../../../API/API";
 
 export const deleteTask = (id, symbol) => async (dispatch) => {
     const globalTasks = await deleteTaskAPI(id, symbol)
@@ -25,7 +45,7 @@ export const checkedLocal = (checked, id) => async (dispatch) => {
 
 export const tasksCheckeds = (checked) => async (dispatch) => {
     const globalTasks = await tasksCheckedAPI(checked)
-    return dispatch(getTasks(globalTasks.data.tasks));
+    dispatch(upTasksCompleted(globalTasks.data.taskChecked))
 };
 
 export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
