@@ -5,22 +5,19 @@ import {ListGroupItem} from "react-bootstrap";
 import Task from "../Task";
 
 function TodoList(props) {
-    // let tasks = [];
-
-
     let tasks = useMemo(() => {
         switch (props.typeList) {
             case "all": {
-                 return props.tasks;
+                return props.tasks;
             }
             case "completed": {
-                return  props.tasks.filter((elem) => elem.taskChecked === true);
+                return props.tasks.filter((elem) => elem.taskChecked === true);
             }
             case "todo": {
                 return props.tasks.filter((elem) => elem.taskChecked === false);
             }
             default : {
-                return  props.tasks
+                return props.tasks
             }
         }
     }, [props])

@@ -21,7 +21,7 @@ function Registration(props) {
     }
     let registers = useCallback(async () => {
         upDisable(true)
-        if (!props.user && name && password !== undefined) {
+        if (!props.user && name && password) {
             let response = await props.createUser(name, password)
             if (response) {
                 upStatusUser(response)

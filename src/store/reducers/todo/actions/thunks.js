@@ -40,6 +40,7 @@ export const getTasksLocal = (symbol) => async (dispatch) => {
 
 export const checkedLocal = (checked, id) => async (dispatch) => {
     const globalTasks = await checkUpdateAPI(id, checked)
+
     return dispatch(upTasks(globalTasks.data.task.id, globalTasks.data.task.taskChecked))
 };
 
@@ -102,10 +103,7 @@ export const loginAuto = () => async (dispatch) => {
         dispatch(authUser(token))
         const result = await tokenAuthorization(token)
         dispatch(createNewUser(result.data.user));
-    } else {
-        return "not token"
     }
-
 };
 
 

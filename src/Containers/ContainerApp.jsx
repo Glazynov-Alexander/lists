@@ -1,9 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, logOutUse,loginAuto} from "../store/reducers/todo/actions/thunks.js";
+import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, logOutUse, loginAuto} from "../store/reducers/todo/actions/thunks.js";
 import {authUser} from "../store/reducers/todo/actions/actions.js";
 import {withRouter} from "react-router";
-
 import '../App.css'
 import {compose} from "redux";
 import {AppHoc} from "../Hocs/AppHoc";
@@ -21,7 +20,7 @@ class ContainerApp extends React.Component {
             this.props.authUser("")
         }
         if (!this.props.user && !this.props.auth) {
-           await this.props.loginAuto()
+            await this.props.loginAuto()
         }
     }
 
