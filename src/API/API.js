@@ -55,61 +55,16 @@ export const refreshTokensAPI = (ref) => {
 export const tokenAuthorization = (token) => {
     return Axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
-export const repeat = async (vid, url, par) => {
-    Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
-debugger
-    switch (vid) {
-        case "put": {
-            return await Axios.put(url, JSON.parse(par))
-        }
-        case "post": {
-            return await Axios.post(url, JSON.parse(par))
-        }
-        case "get": {
-            return await Axios.get(url)
-        }
-        case "delete": {
-            return await Axios.delete(url)
-        }
-        default :
-            return "error"
-    }
-    // Axios.get(`/auth/token-authorization`, {params: {user: token}})
-}
-
-
-Axios.interceptors.request.use(req => {
-
-    return req;
-}, async err => {
-
-
-    await refreshTokensAPI(localStorage.getItem('refresh'))
-
-    // return err.response
-    return
-});
 
 
 Axios.interceptors.response.use(response => {
-
-        if (response.data.tokens) {
-
-            localStorage.setItem('user', response.data.tokens.token)
-            localStorage.setItem('refresh', response.data.tokens.refreshToken)
-            // window.location.replace('/tasks');
-
+        if (!response.data.tokens) {
+            return response;
         }
-        return response;
+        if (response.data.tokens) {
+            return response
+        }
     }
     , async err => {
-
-        // if (err.response.status === 403 && err.config && !err.config.__isRetryRequest) {
-        let a = err.response.config.url
-        let b = err.response.config.data
-        let c = err.response.config.method
-        await refreshTokensAPI(localStorage.getItem('refresh'))
-
-        let cd = await repeat(c, a, b)
-        return cd
+        return err.response
     });

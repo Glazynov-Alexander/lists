@@ -43,7 +43,7 @@ const todoReducer = (state = initialState, action) => {
                     return {...el}
                 })
             };
-        }
+                    }
 
 
         case CREATE_NEW_USER : {
