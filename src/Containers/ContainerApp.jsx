@@ -12,8 +12,6 @@ import ContainerLogin from "./ContainerLogin";
 import ContainerRegistration from "./ContainerRegistration";
 import {Route} from "react-router-dom";
 import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
-
-
 class ContainerApp extends React.Component {
     async componentDidMount() {
         if (this.props.auth && this.props.auth.includes('Bearer') === false) {
@@ -27,6 +25,7 @@ class ContainerApp extends React.Component {
     render() {
 
         return (<div className={"app"}>
+
             <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
             <Route path={"/login"} render={() => AuthHoc(ContainerLogin, this.props)}/>
             <Route path={"/registration"} render={() => AuthHoc(ContainerRegistration, this.props)}/>

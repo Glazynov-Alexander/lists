@@ -58,12 +58,8 @@ export const tokenAuthorization = (token) => {
 
 
 Axios.interceptors.response.use(response => {
-        if (!response.data.tokens) {
-            return response;
-        }
-        if (response.data.tokens) {
             return response
-        }
+
     }
     , async err => {
         return err.response

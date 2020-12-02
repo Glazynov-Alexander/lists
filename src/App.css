@@ -171,3 +171,15 @@ justify-content: space-between;
 .buttonAuth div a:last-child {
     margin-left: 20px;
 }
+
+img {
+    margin-right: 20px;
+    cursor: pointer;
+    width: 35px;
+}
+
+img:hover {
+    filter: invert(27%) sepia(2%) saturate(278%) hue-rotate(346deg) brightness(14%) contrast(97%);
+}
+
+

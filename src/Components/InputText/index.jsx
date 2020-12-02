@@ -14,12 +14,12 @@ function InputText({createNewTask, symbol}) {
             && error.length >= 3
             && e.code === 'Enter') {
             if (symbol) {
-                await createNewTask(e.target.value, symbol)
+                createNewTask(e.target.value, symbol)
             }
         } else {
             spinnerChange(false)
         }
-    }, [error, symbol, createNewTask])
+    }, [error.length, symbol, createNewTask])
 
     if (spinner) return <Spinner className="loaderInputText" animation="border" variant="dark"/>
 

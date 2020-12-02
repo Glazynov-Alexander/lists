@@ -108,11 +108,10 @@ export const logOutUse = () => async (dispatch) => {
 export const loginAuto = () => async (dispatch) => {
     await refreshTokens()
 
+
     const token = localStorage.getItem('user')
     if (token) {
-
         dispatch(authUser(token))
-
         const result = await tokenAuthorization(token)
         dispatch(createNewUser(result.data.user));
     }
@@ -122,20 +121,17 @@ export const refreshTokens = async () => {
     const token = localStorage.getItem('user');
     const res = localStorage.getItem('refresh')
     let b = await jsonwebtoken.decode(res);
-    if (b && Date.now() >= b.exp * 1000) {
+    
+    if (b && Date.now() >= b.exp * 1000 ) {
         localStorage.clear()
         window.location.replace('/login')
     }
     if (token) {
         let access = token.replace('Bearer ', '')
         try {
-
             await jsonwebtoken.verify(access, "access");
-
-
         } catch (e) {
             let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
-
             if (tokens.data.tokens) {
                 Axios.defaults.headers.common['Authorization'] = tokens.data.tokens.token
                 localStorage.setItem('user', tokens.data.tokens.token)
@@ -145,5 +141,5 @@ export const refreshTokens = async () => {
 
         }
     }
-    return
+    return 'error'
 };
