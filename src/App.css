@@ -21,6 +21,7 @@ header {
 .inputText {
     padding: 20px;
 }
+
 .titleAuth {
     text-align: center;
 }
@@ -115,24 +116,27 @@ input[type=checkbox]:checked + .pseudoBox::before {
 }
 
 .status {
-    background:rgba(8, 208, 243, 0.274);
+    background: rgba(8, 208, 243, 0.274);
     padding: 9px 7px 9px 9px;
     border: 2px solid rgba(113, 195, 216, 0.205);
     border-radius: 22px;
     margin: 10px;
-    box-shadow:  0 0 10px rgba(20, 1, 1, 0.2);
+    box-shadow: 0 0 10px rgba(20, 1, 1, 0.2);
     text-align: center;
 }
-.status h3{
+
+.status h3 {
     margin: auto;
     font-weight: bold;
     font-family: DialogInput;
-    color: rgba(20, 1, 1, 0.589) ;
+    color: rgba(20, 1, 1, 0.589);
 }
+
 .fade {
     margin: 5px;
     text-align: center;
 }
+
 .footer p {
     cursor: pointer;
 }
@@ -155,19 +159,21 @@ input[type=checkbox]:checked + .pseudoBox::before {
     justify-content: center;
 }
 
-.form-group  {
+.form-group {
     margin: 5px;
 }
 
-.buttonAuth  {
-   display: flex;
-justify-content: space-between;
+.buttonAuth {
+    display: flex;
+    justify-content: space-between;
     margin-left: 25px;
     margin-right: 25px;
 }
+
 .buttonAuth div {
     align-items: center;
 }
+
 .buttonAuth div a:last-child {
     margin-left: 20px;
 }
@@ -182,4 +188,7 @@ img:hover {
     filter: invert(27%) sepia(2%) saturate(278%) hue-rotate(346deg) brightness(14%) contrast(97%);
 }
 
+.scroll div:last-child {
+    margin-bottom: 5px;
+}
 

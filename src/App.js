@@ -9,7 +9,6 @@ function App(props) {
     let logOut = () => {
         props.logOutUse()
         props.history.push('/registration')
-        window.location.reload();
     }
     useEffect(() => {
         if (props.user && !props.tasks) {

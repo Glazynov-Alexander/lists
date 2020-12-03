@@ -49,7 +49,6 @@ export const checkedLocal = (checked, id) => async (dispatch) => {
     await refreshTokens()
 
     const globalTasks = await checkUpdateAPI(id, checked)
-
     return dispatch(upTasks(globalTasks.data.task.id, globalTasks.data.task.taskChecked))
 };
 
@@ -68,26 +67,9 @@ export const createNewTaskLocal = (textTask, symbol) => async (dispatch) => {
     return task
 };
 
-export const getUser = (name, password, token) => async (dispatch) => {
-
-    let globalUsers
-    globalUsers = await getUserAPI(name, password, token)
-    if (!globalUsers.data.user) {
-        return globalUsers.data.status
-    }
-    if (!localStorage.getItem('user')) {
-        localStorage.setItem('user', globalUsers.data.tokens.token)
-        localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
-    }
-    dispatch(authUser(localStorage.getItem('user')))
-    dispatch(createNewUser(globalUsers.data.user));
-    return globalUsers.data
-};
-
-
 export const createUser = (name, password) => async (dispatch) => {
-    await refreshTokens()
     const response = await createUserAPI(name, password)
+
     if (!response.data.user) {
         return response.data.status
     } else if (!response.data.client) {
@@ -100,32 +82,66 @@ export const createUser = (name, password) => async (dispatch) => {
 
 };
 
-export const logOutUse = () => async (dispatch) => {
-    dispatch(authUser(""))
-    localStorage.removeItem("user")
+export const getUser = (name, password, token) => async (dispatch) => {
+    let globalUsers
+    globalUsers = await getUserAPI(name, password, token)
+    if (!globalUsers.data.user) {
+        return globalUsers.data.status
+    }
+
+    if (!localStorage.getItem('user')) {
+        localStorage.setItem('user', globalUsers.data.tokens.token)
+        localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
+    }
+
+    dispatch(authUser(localStorage.getItem('user')))
+    dispatch(createNewUser(globalUsers.data.user));
 };
 
 export const loginAuto = () => async (dispatch) => {
-    await refreshTokens()
-
+   if(localStorage.getItem('refresh'))  await refreshTokens()
 
     const token = localStorage.getItem('user')
     if (token) {
         dispatch(authUser(token))
-        const result = await tokenAuthorization(token)
-        dispatch(createNewUser(result.data.user));
+        tokenAuthorization(token).then(async result => {
+            await localStorage.setItem('user', result.data.tokens.token)
+            await localStorage.setItem('refresh', result.data.tokens.refreshToken)
+            return dispatch(createNewUser(result.data.user));
+        })
+    }
+
+    dispatch(authUser(token))
+};
+
+export const logOutUse = () => async (dispatch) => {
+    dispatch(authUser(""))
+    localStorage.clear()
+};
+
+export const loginVK = (pathname) => async (dispatch) => {
+    let tokenVk = pathname.match(/Bearer[^?]+/gm)
+    dispatch(authUser(tokenVk))
+
+    if (tokenVk && tokenVk.includes('Bearer') === false) {
+        localStorage.setItem("user", tokenVk[0])
+        const result = await tokenAuthorization(tokenVk[0])
+        await localStorage.setItem('user', result.data.tokens.token)
+        await localStorage.setItem('refresh', result.data.tokens.refreshToken)
+        return dispatch(createNewUser(result.data.user));
     }
 };
 
 export const refreshTokens = async () => {
-    const token = localStorage.getItem('user');
+    let token = localStorage.getItem('user') || "a";
     const res = localStorage.getItem('refresh')
     let b = await jsonwebtoken.decode(res);
-    
-    if (b && Date.now() >= b.exp * 1000 ) {
+
+    if ((b && Date.now() >= b.exp * 1000) || (!b || !b.exp)) {
         localStorage.clear()
         window.location.replace('/login')
     }
+
     if (token) {
         let access = token.replace('Bearer ', '')
         try {
@@ -138,7 +154,6 @@ export const refreshTokens = async () => {
                 localStorage.setItem('refresh', tokens.data.tokens.refreshToken)
                 return
             }
-
         }
     }
     return 'error'

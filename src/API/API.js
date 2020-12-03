@@ -1,11 +1,9 @@
 import Axios from "axios";
 
-
 Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 if (localStorage.getItem('user') && localStorage.getItem('user').includes('Bearer') === false) {
     localStorage.removeItem("user")
 }
-
 
 //tasks
 export const deleteTaskAPI = (id) => {
@@ -40,7 +38,6 @@ export const createUserAPI = (name, password) => {
 export const getUserAPI = async (name, password, token) => {
     Axios.defaults.headers.common['Authorization'] = token
     return Axios.get(`/auth/login`, {params: {user: token, name, password}})
-
 }
 
 export const othersGetUserAPI = (name, password, token) => {
@@ -52,7 +49,9 @@ export const othersGetUserAPI = (name, password, token) => {
 export const refreshTokensAPI = (ref) => {
     return Axios.post(`/auth/refresh-tokens`, {refresh: ref})
 }
+
 export const tokenAuthorization = (token) => {
+    Axios.defaults.headers.common['Authorization'] = token
     return Axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
 
