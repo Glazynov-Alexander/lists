@@ -5,7 +5,6 @@ if (localStorage.getItem('user') && localStorage.getItem('user').includes('Beare
     localStorage.removeItem("user")
 }
 let axios = Axios.create({
-    headers: {'Authorization': localStorage.getItem('user')},
     baseURL: "https://backendtodos2.herokuapp.com"
 })
 
