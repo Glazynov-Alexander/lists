@@ -14,7 +14,7 @@ function ButtonsAuth(props) {
             {props.location.pathname === "/registration" ? <h1 className="titleAuth">Registration</h1> : null}
             {props.auth ? <div className="buttonEnter"><NavLink href="/tasks"><Button variant="dark"  disabled={!props.auth}>enter</Button></NavLink></div>
                 : <div className="loginButtons">
-                    <NavLink href="http://localhost:5001/auth/vkontakte" ><img  src={logo} alt=""/></NavLink>
+                    <NavLink href="https://backendtodos2.herokuapp.com/auth/vkontakte" ><img  src={logo} alt=""/></NavLink>
                     <NavLink href="/registration"><Button variant="dark" disabled={props.auth}>Registration</Button></NavLink>
                     <NavLink href="/login"><Button variant="dark" disabled={props.auth}>Login</Button></NavLink>
                 </div>

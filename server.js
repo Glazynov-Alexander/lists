@@ -1,5 +1,5 @@
 const express = require('express');
-
+const cors = require('cors');
 // const favicon = require('express-favicon');
 const path = require('path');
 const port = process.env.PORT || 8080;
@@ -7,7 +7,12 @@ const port = process.env.PORT || 8080;
 // здесь у нас происходит импорт пакетов и определяется порт нашего сервера
 const app = express();
 // app.use(favicon(__dirname + './build/favicon.png'));
+let corsOptions = {
+    origin: "https://backendtodos2.herokuapp.com",
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
+app.get("/*", cors(corsOptions));
 //здесь наше приложение отдаёт статику
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
