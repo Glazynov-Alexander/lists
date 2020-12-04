@@ -8,7 +8,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 // app.use(favicon(__dirname + './build/favicon.png'));
 let corsOptions = {
-    origin: "https://gods123.herokuapp.com",
+    origin: "https://backendtodos2.herokuapp.com",
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
