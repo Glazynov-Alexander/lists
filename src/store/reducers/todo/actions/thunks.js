@@ -121,9 +121,9 @@ export const logOutUse = () => async (dispatch) => {
 
 export const loginVK = (pathname) => async (dispatch) => {
     let tokenVk = pathname.match(/Bearer[^?]+/gm)
-
-    if (tokenVk && tokenVk[0].includes('Bearer') === false) {
-        // localStorage.setItem("user", tokenVk[0])
+  
+    if (tokenVk[0] && tokenVk[0].includes('Bearer') !== false) {
+        localStorage.setItem("user", tokenVk[0])
         const result = await tokenAuthorization(tokenVk[0])
         dispatch(authUser(result.data.tokens.token))
         await localStorage.setItem('user', result.data.tokens.token)

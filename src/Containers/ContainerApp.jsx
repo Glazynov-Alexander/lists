@@ -15,14 +15,12 @@ import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
 
 class ContainerApp extends React.Component {
     async componentDidMount() {
-        if (!this.props.auth) {
+        if (!this.props.auth && this.props.location.pathname) {
             this.props.loginVK(this.props.location.pathname).then()
         }
         if (!this.props.user && !this.props.auth && this.props.auth !== false) {
             this.props.loginAuto().then()
         }
-
-
     }
 
 
