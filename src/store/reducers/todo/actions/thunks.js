@@ -142,19 +142,23 @@ export const refreshTokens = async () => {
         window.location.replace('/login')
     }
 
-    if (token) {
+    if (token  && token.includes('Bearer') === false) {
+        let access = token.replace('Bearer ', '')
+
         try {
-            let access = token.replace('Bearer ', '')
             await jsonwebtoken.verify(access, "access");
         } catch (e) {
             let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
             if (tokens.data.tokens) {
                 Axios.defaults.headers.common['Authorization'] = tokens.data.tokens.token
+
                 localStorage.setItem('user', tokens.data.tokens.token)
                 localStorage.setItem('refresh', tokens.data.tokens.refreshToken)
                 return
             }
         }
     }
+    localStorage.clear()
+
     return 'error'
 };
