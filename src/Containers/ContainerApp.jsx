@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, logOutUse, loginAuto, loginVK} from "../store/reducers/todo/actions/thunks.js";
+import {authUser} from "../store/reducers/todo/actions/actions.js";
 import {withRouter} from "react-router";
 import '../App.css'
 import {compose} from "redux";
@@ -37,7 +38,7 @@ class ContainerApp extends React.Component {
 
 let mapStateToProps = (state) => ({tasks: state.todo.tasks, user: state.todo.user, auth: state.todo.auth});
 let ContainerAppCompose = compose(
-    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, logOutUse, loginAuto, loginVK}),
+    connect(mapStateToProps, {createNewTaskLocal, getTasksLocal, createUser, getUser, refreshTokens, authUser, logOutUse, loginAuto, loginVK}),
     withRouter
 )(ContainerApp)
 export default ContainerAppCompose
