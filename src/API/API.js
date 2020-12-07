@@ -49,7 +49,14 @@ export const othersGetUserAPI = (name, password) => {
 
 //tokens
 export const refreshTokensAPI = (ref) => {
-    return axios.post(`/auth/refresh-tokens`, {refresh: ref})
+    return axios.post(`/auth/refresh-tokens`, {refresh: ref}).then(response => {
+        if (response.data.tokens) {
+            axios.defaults.headers.common['Authorization'] = response.data.tokens.token
+            localStorage.setItem('user', response.data.tokens.token)
+            localStorage.setItem('refresh', response.data.tokens.refreshToken)
+            return
+        }
+    })
 }
 
 export const tokenAuthorization = (token) => {

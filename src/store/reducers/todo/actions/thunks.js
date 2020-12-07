@@ -120,14 +120,16 @@ export const logOutUse = () => async (dispatch) => {
 };
 
 export const loginVK = (pathname) => async (dispatch) => {
-    let tokenVk = pathname.match(/Bearer[^?]+/gm)
+    if (pathname) {
+        let tokenVk = pathname.match(/Bearer[^?]+/gm)
 
-    if (tokenVk[0] && tokenVk[0].includes('Bearer') !== false) {
-        const result = await tokenAuthorization(tokenVk[0])
-        dispatch(authUser(result.data.tokens.token))
-        await localStorage.setItem('user', result.data.tokens.token)
-        await localStorage.setItem('refresh', result.data.tokens.refreshToken)
-        return dispatch(createNewUser(result.data.user));
+        if (tokenVk && tokenVk[0].includes('Bearer') !== false) {
+            const result = await tokenAuthorization(tokenVk[0])
+            dispatch(authUser(result.data.tokens.token))
+            await localStorage.setItem('user', result.data.tokens.token)
+            await localStorage.setItem('refresh', result.data.tokens.refreshToken)
+            return dispatch(createNewUser(result.data.user));
+        }
     }
 };
 
@@ -141,19 +143,13 @@ export const refreshTokens = async () => {
         window.location.replace('/login')
     }
 
-    if (token ) {
+    if (token) {
         let access = token.replace('Bearer ', '')
 
         try {
             await jsonwebtoken.verify(access, "access");
         } catch (e) {
-            let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
-            if (tokens.data.tokens) {
-                Axios.defaults.headers.common['Authorization'] = tokens.data.tokens.token
-                localStorage.setItem('user', tokens.data.tokens.token)
-                localStorage.setItem('refresh', tokens.data.tokens.refreshToken)
-                return
-            }
+            return await refreshTokensAPI(localStorage.getItem("refresh"))
         }
     }
 
