@@ -23,6 +23,11 @@ class ContainerApp extends React.Component {
         }
     }
 
+  async  componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!this.props.auth) {
+            await this.props.loginVK(this.props.location.pathname)
+        }
+    }
 
     render() {
 
