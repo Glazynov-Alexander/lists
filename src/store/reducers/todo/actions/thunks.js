@@ -151,14 +151,13 @@ export const refreshTokens = async () => {
             let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
             if (tokens.data.tokens) {
                 Axios.defaults.headers.common['Authorization'] = tokens.data.tokens.token
-
                 localStorage.setItem('user', tokens.data.tokens.token)
                 localStorage.setItem('refresh', tokens.data.tokens.refreshToken)
                 return
             }
         }
     }
-    localStorage.clear()
+    // localStorage.clear()
 
     return 'error'
 };
