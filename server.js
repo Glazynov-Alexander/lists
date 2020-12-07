@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-// const favicon = require('express-favicon');
+// let favicon = require('express-favicon');
 const path = require('path');
 const port = process.env.PORT || 8080;
 
@@ -13,8 +13,8 @@ let corsOptions = {
 
 app.get("/*", cors(corsOptions));
 app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'build')));
 // app.use(favicon(__dirname + '/build/favicon.png'));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
     return res.send('pong');

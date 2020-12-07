@@ -149,7 +149,7 @@ export const refreshTokens = async () => {
         try {
             await jsonwebtoken.verify(access, "access");
         } catch (e) {
-            return await refreshTokensAPI(localStorage.getItem("refresh"))
+            return await refreshTokensAPI(res)
         }
     }
 
