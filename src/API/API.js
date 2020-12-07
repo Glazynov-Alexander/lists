@@ -1,10 +1,9 @@
 import Axios from "axios";
 
 Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
-// if (localStorage.getItem('user') && localStorage.getItem('user').includes('Bearer') === false) {
-//     debugger
-//     localStorage.removeItem("user")
-// }
+if (localStorage.getItem('user') && localStorage.getItem('user').includes('Bearer') === false) {
+    localStorage.removeItem("user")
+}
 let axios = Axios.create({
     baseURL: "https://backendtodos2.herokuapp.com"
 })
@@ -23,7 +22,8 @@ export const createTaskAPI = (textTask, symbol) => {
 }
 
 export const getTasksAPI = async (symbol, token) => {
-     Axios.defaults.headers.common['Authorization'] = token
+     axios.defaults.headers.common['Authorization'] = token
+    debugger
     return axios.get(`/lists/get/tasks?symbol=${symbol}`)
 }
 
