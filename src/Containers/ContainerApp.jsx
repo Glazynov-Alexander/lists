@@ -16,21 +16,18 @@ import ButtonsAuth from "../Components/Buttons/ButtonsAuth";
 class ContainerApp extends React.Component {
     async componentDidMount() {
         if (!this.props.auth) {
-            await this.props.loginVK(this.props.location.pathname)
+            this.props.loginVK(this.props.location.pathname).then()
         }
         if (!this.props.user && !this.props.auth && this.props.auth !== false) {
-            await this.props.loginAuto()
+            this.props.loginAuto().then()
         }
+
+
     }
 
-  async  componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!this.props.auth) {
-            await this.props.loginVK(this.props.location.pathname)
-        }
-    }
+
 
     render() {
-
 
         return (<div className={"app"}>
             <ButtonsAuth location={this.props.location} history={this.props.history} auth={this.props.auth}/>
