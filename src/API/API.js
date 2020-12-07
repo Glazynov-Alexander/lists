@@ -42,7 +42,7 @@ export const getUserAPI = async (name, password, token) => {
     return axios.get(`/auth/login`, {params: {user: token, name, password}})
 }
 
-export const othersGetUserAPI = (name, password, token) => {
+export const othersGetUserAPI = (name, password) => {
     return axios.get(`/auth/login`, {params: {"name": name, "password": password}})
 }
 
@@ -57,9 +57,9 @@ export const tokenAuthorization = (token) => {
     return axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
 
-axios.interceptors.request.use(req => {
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
-        return req
-    }, async err => {
-        return err.response
-    });
+Axios.interceptors.request.use(req => {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
+    return req
+}, async err => {
+    return err.response
+});

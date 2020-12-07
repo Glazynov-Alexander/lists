@@ -121,7 +121,7 @@ export const logOutUse = () => async (dispatch) => {
 
 export const loginVK = (pathname) => async (dispatch) => {
     let tokenVk = pathname.match(/Bearer[^?]+/gm)
-  
+
     if (tokenVk[0] && tokenVk[0].includes('Bearer') !== false) {
         localStorage.setItem("user", tokenVk[0])
         const result = await tokenAuthorization(tokenVk[0])
@@ -156,7 +156,6 @@ export const refreshTokens = async () => {
             }
         }
     }
-    // localStorage.clear()
 
     return 'error'
 };
