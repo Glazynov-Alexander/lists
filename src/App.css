@@ -139,6 +139,8 @@ input[type=checkbox]:checked + .pseudoBox::before {
 
 .footer p {
     cursor: pointer;
+    width: 125px;
+    text-align: center;
 }
 
 .footer p:hover {
