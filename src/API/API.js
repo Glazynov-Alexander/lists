@@ -6,9 +6,6 @@ if (localStorage.getItem('user') && localStorage.getItem('user').includes('Beare
     localStorage.removeItem("user")
 }
 let axios = Axios.create({
-    headers: {
-        'Authorization':localStorage.getItem('user')
-    },
     baseURL: "https://backendtodos2.herokuapp.com"
 })
 
@@ -42,7 +39,7 @@ export const createUserAPI = (name, password) => {
     return axios.post("/auth/registration", {name, password})
 }
 export const getUserAPI = async (name, password, token) => {
-    Axios.defaults.headers.common['Authorization'] = token
+    axios.defaults.headers.common['Authorization'] = token
     return axios.get(`/auth/login`, {params: {user: token, name, password}})
 }
 
@@ -57,11 +54,11 @@ export const refreshTokensAPI = (ref) => {
 }
 
 export const tokenAuthorization = (token) => {
-    Axios.defaults.headers.common['Authorization'] = token
+    axios.defaults.headers.common['Authorization'] = token
     return axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
 
-Axios.interceptors.response.use(response => {
+axios.interceptors.response.use(response => {
         return response
 
     }
