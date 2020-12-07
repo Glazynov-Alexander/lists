@@ -1,12 +1,12 @@
 import Axios from "axios";
 
-Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 if (localStorage.getItem('user') && localStorage.getItem('user').includes('Bearer') === false) {
     localStorage.removeItem("user")
 }
 let axios = Axios.create({
     baseURL: "https://backendtodos2.herokuapp.com"
 })
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 
 //tasks
 export const deleteTaskAPI = (id) => {
@@ -57,9 +57,3 @@ export const tokenAuthorization = (token) => {
     return axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
 
-Axios.interceptors.request.use(req => {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
-    return req
-}, async err => {
-    return err.response
-});
