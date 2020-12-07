@@ -142,7 +142,7 @@ export const refreshTokens = async () => {
         window.location.replace('/login')
     }
 
-    if (token  && token.includes('Bearer') === false) {
+    if (token ) {
         let access = token.replace('Bearer ', '')
 
         try {
