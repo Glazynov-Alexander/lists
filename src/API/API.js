@@ -22,8 +22,8 @@ export const createTaskAPI = (textTask, symbol) => {
     return axios.post("/lists/task/create", {taskChecked: false, textTask, symbol})
 }
 
-export const getTasksAPI = async (symbol) => {
-    Axios.defaults.headers.common['Authorization'] = await localStorage.getItem('user')
+export const getTasksAPI = async (symbol, token) => {
+     Axios.defaults.headers.common['Authorization'] = token
     return axios.get(`/lists/get/tasks?symbol=${symbol}`)
 }
 

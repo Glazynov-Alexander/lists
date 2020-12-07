@@ -40,7 +40,7 @@ export const deleteTasksCompleted = (symbol) => async (dispatch) => {
 export const getTasksLocal = (symbol) => async (dispatch) => {
     await refreshTokens()
 
-    const globalTasks = await getTasksAPI(symbol)
+    const globalTasks = await getTasksAPI(symbol, localStorage.getItem('user'))
     if (!globalTasks.data.tasks) return globalTasks.data.status
     return dispatch(getTasks(globalTasks.data.tasks));
 };
