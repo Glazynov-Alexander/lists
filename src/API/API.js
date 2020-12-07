@@ -2,9 +2,13 @@ import Axios from "axios";
 
 Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
 if (localStorage.getItem('user') && localStorage.getItem('user').includes('Bearer') === false) {
+    debugger
     localStorage.removeItem("user")
 }
 let axios = Axios.create({
+    headers: {
+        'Authorization':localStorage.getItem('user')
+    },
     baseURL: "https://backendtodos2.herokuapp.com"
 })
 
@@ -21,8 +25,8 @@ export const createTaskAPI = (textTask, symbol) => {
     return axios.post("/lists/task/create", {taskChecked: false, textTask, symbol})
 }
 
-export const getTasksAPI = (symbol) => {
-    Axios.defaults.headers.common['Authorization'] = localStorage.getItem('user')
+export const getTasksAPI = async (symbol) => {
+    Axios.defaults.headers.common['Authorization'] = await localStorage.getItem('user')
     return axios.get(`/lists/get/tasks?symbol=${symbol}`)
 }
 
@@ -32,7 +36,6 @@ export const checkUpdateAPI = (id, checked) => {
 export const tasksCheckedAPI = (checked) => {
     return axios.put("/lists/tasks/updates", {checked})
 }
-
 
 //user
 export const createUserAPI = (name, password) => {
@@ -57,7 +60,6 @@ export const tokenAuthorization = (token) => {
     Axios.defaults.headers.common['Authorization'] = token
     return axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
-
 
 Axios.interceptors.response.use(response => {
         return response

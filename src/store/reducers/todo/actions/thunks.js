@@ -99,14 +99,14 @@ export const getUser = (name, password, token) => async (dispatch) => {
 };
 
 export const loginAuto = () => async (dispatch) => {
-   if(localStorage.getItem('refresh'))  await refreshTokens()
+    if (localStorage.getItem('refresh')) await refreshTokens()
 
     const token = localStorage.getItem('user')
     if (token) {
         dispatch(authUser(token))
         tokenAuthorization(token).then(async result => {
-            await localStorage.setItem('user', result.data.tokens.token)
-            await localStorage.setItem('refresh', result.data.tokens.refreshToken)
+            localStorage.setItem('user', result.data.tokens.token)
+            localStorage.setItem('refresh', result.data.tokens.refreshToken)
             return dispatch(createNewUser(result.data.user));
         })
     }
@@ -121,11 +121,11 @@ export const logOutUse = () => async (dispatch) => {
 
 export const loginVK = (pathname) => async (dispatch) => {
     let tokenVk = pathname.match(/Bearer[^?]+/gm)
-    dispatch(authUser(tokenVk))
 
-    if (tokenVk && tokenVk.includes('Bearer') === false) {
-        localStorage.setItem("user", tokenVk[0])
+    if (tokenVk && tokenVk[0].includes('Bearer') === false) {
+        // localStorage.setItem("user", tokenVk[0])
         const result = await tokenAuthorization(tokenVk[0])
+        dispatch(authUser(result.data.tokens.token))
         await localStorage.setItem('user', result.data.tokens.token)
         await localStorage.setItem('refresh', result.data.tokens.refreshToken)
         return dispatch(createNewUser(result.data.user));
@@ -133,7 +133,7 @@ export const loginVK = (pathname) => async (dispatch) => {
 };
 
 export const refreshTokens = async () => {
-    let token = localStorage.getItem('user') || "a";
+    let token = localStorage.getItem('user') || "not";
     const res = localStorage.getItem('refresh')
     let b = await jsonwebtoken.decode(res);
 
@@ -143,8 +143,8 @@ export const refreshTokens = async () => {
     }
 
     if (token) {
-        let access = token.replace('Bearer ', '')
         try {
+            let access = token.replace('Bearer ', '')
             await jsonwebtoken.verify(access, "access");
         } catch (e) {
             let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
