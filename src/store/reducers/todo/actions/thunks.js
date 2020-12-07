@@ -123,7 +123,6 @@ export const loginVK = (pathname) => async (dispatch) => {
     let tokenVk = pathname.match(/Bearer[^?]+/gm)
 
     if (tokenVk[0] && tokenVk[0].includes('Bearer') !== false) {
-        localStorage.setItem("user", tokenVk[0])
         const result = await tokenAuthorization(tokenVk[0])
         dispatch(authUser(result.data.tokens.token))
         await localStorage.setItem('user', result.data.tokens.token)
@@ -150,6 +149,7 @@ export const refreshTokens = async () => {
         } catch (e) {
             let tokens = await refreshTokensAPI(localStorage.getItem("refresh"))
             if (tokens.data.tokens) {
+                Axios.defaults.headers.common['Authorization'] = tokens.data.tokens.token
                 localStorage.setItem('user', tokens.data.tokens.token)
                 localStorage.setItem('refresh', tokens.data.tokens.refreshToken)
                 return
