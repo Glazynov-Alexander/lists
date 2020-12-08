@@ -19,6 +19,7 @@ function Registration(props) {
         upPassword(e.target.value)
         upStatusUser("")
     }
+
     let registers = useCallback(async () => {
         upDisable(true)
         if (!props.user && name && password) {
@@ -45,7 +46,7 @@ function Registration(props) {
                 <Form.Control type="password" onChange={changeFieldPassword} placeholder="Password"/>
             </Form.Group>
 
-            {statusUser ? <Alert variant={"danger"}>{statusUser}</Alert>: null}
+            {statusUser ? <Alert variant={"danger"}>{statusUser}</Alert> : null}
             <Button variant="dark" disabled={disable} onClick={registers}>Create User</Button>
         </div>
     );
