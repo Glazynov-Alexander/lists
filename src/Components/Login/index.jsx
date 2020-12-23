@@ -16,6 +16,7 @@ function Login(props) {
         upPassword(e.target.value)
         upStatusUser("")
     }
+
     let res
     let logins = useCallback(async () => {
         upDisable(true)
@@ -33,6 +34,10 @@ function Login(props) {
             upDisable(false)
         }
     }, [props, name, password])
+
+     upStatusUser(res)
+     upDisable(false)
+
     return (<div className="inputText">
 
 
