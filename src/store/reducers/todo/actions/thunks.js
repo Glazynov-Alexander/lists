@@ -86,8 +86,8 @@ export const getUser = (name, password, token) => async (dispatch) => {
     let globalUsers
     globalUsers = await getUserAPI(name, password, token)
     if (!globalUsers.data.user) {
-         // globalUsers.data.status
-        return "error"
+         return  globalUsers.data.status
+        // return "error"
     }
 
     if (!localStorage.getItem('user')) {

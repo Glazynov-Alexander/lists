@@ -33,12 +33,11 @@ function Login(props) {
 
             upDisable(false)
         }
+        await upStatusUser(res)
+        await upDisable(false)
     }, [props, name, password])
 
-    if (res) {
-         upStatusUser(res)
-         upDisable(false)
-    }
+
 
     return (<div className="inputText">
 
