@@ -49,7 +49,7 @@ function Login(props) {
             </Form.Group>
             {statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}
             {statusUser ? <Alert variant="danger">{statusUser}</Alert>: null}
-
+            <Button variant="dark" disabled={disable} onClick={logins}>Login</Button>
         </div>
     );
 }
