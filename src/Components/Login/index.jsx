@@ -16,15 +16,20 @@ function Login(props) {
         upPassword(e.target.value)
         upStatusUser("")
     }
+    let res
     let logins = useCallback(async () => {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
-            let res = await props.getUser(name, password, props.auth)
+            res = await props.getUser(name, password, props.auth)
             if (res) {
                await upStatusUser(res)
                 await upDisable(false)
             }
         } else {
+            if(res) {
+                await upStatusUser(res)
+                await upDisable(false)
+            }
             upDisable(false)
         }
     }, [props, name, password])
