@@ -35,8 +35,10 @@ function Login(props) {
         }
     }, [props, name, password])
 
-     upStatusUser(res)
-     upDisable(false)
+    if (res) {
+         upStatusUser(res)
+         upDisable(false)
+    }
 
     return (<div className="inputText">
 
