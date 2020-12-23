@@ -27,6 +27,9 @@ function Login(props) {
             }
         } else {
 
+                await upStatusUser(res)
+                await upDisable(false)
+
             upDisable(false)
         }
     }, [props, name, password])
@@ -46,8 +49,7 @@ function Login(props) {
             </Form.Group>
             {statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}
             {statusUser ? <Alert variant="danger">{statusUser}</Alert>: null}
-            <Alert variant="danger">{statusUser}</Alert>: <div className="status"><h3 >{statusUser}</h3></div>
-            <Button variant="dark" disabled={disable} onClick={logins}>Login</Button>
+
         </div>
     );
 }
