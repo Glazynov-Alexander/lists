@@ -20,10 +20,10 @@ function Login(props) {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
             let res = await props.getUser(name, password, props.auth)
-            // if (res) {
+            if (res) {
                await upStatusUser(res)
                 await upDisable(false)
-            // }
+            }
         } else {
             upDisable(false)
         }
@@ -42,7 +42,7 @@ function Login(props) {
                 <Form.Control type="password"  onChange={changeFieldPassword} placeholder="Password"/>
 
             </Form.Group>
-            {/*{statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}*/}
+            {statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}
             {statusUser ? <Alert variant={"danger"}>{statusUser}</Alert>: null}
             <Button variant="dark" disabled={disable} onClick={logins}>Login</Button>
         </div>
