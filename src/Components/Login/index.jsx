@@ -26,10 +26,7 @@ function Login(props) {
                 await upDisable(false)
             }
         } else {
-            if(res) {
-                await upStatusUser(res)
-                await upDisable(false)
-            }
+
             upDisable(false)
         }
     }, [props, name, password])
@@ -46,7 +43,7 @@ function Login(props) {
                 <h4> Password</h4>
                 <Form.Control type="password"  onChange={changeFieldPassword} placeholder="Password"/>
                 {statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}
-                {statusUser ? <Alert variant={"danger"}>{statusUser}</Alert>: null}
+                {statusUser ? <Alert variant="danger">{statusUser}</Alert>: <div className="status"><h3 >{statusUser}</h3></div>}
             </Form.Group>
 
             <Button variant="dark" disabled={disable} onClick={logins}>Login</Button>
