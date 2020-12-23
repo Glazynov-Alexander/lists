@@ -94,8 +94,8 @@ export const getUser = (name, password, token) => async (dispatch) => {
         localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
     }
 
-    dispatch(authUser(localStorage.getItem('user')))
-    dispatch(createNewUser(globalUsers.data.user));
+    dispatch(authUser(localStorage.getItem('user')));
+   return  dispatch(createNewUser(globalUsers.data.user));
 };
 
 export const loginAuto = () => async (dispatch) => {
