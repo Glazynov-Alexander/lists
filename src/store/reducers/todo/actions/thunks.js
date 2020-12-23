@@ -86,7 +86,8 @@ export const getUser = (name, password, token) => async (dispatch) => {
     let globalUsers
     globalUsers = await getUserAPI(name, password, token)
     if (!globalUsers.data.user) {
-        return globalUsers.data.status
+         // globalUsers.data.status
+        return "error"
     }
 
     if (!localStorage.getItem('user')) {
@@ -112,11 +113,13 @@ export const loginAuto = () => async (dispatch) => {
     }
 
     dispatch(authUser(token))
+    return
 };
 
 export const logOutUse = () => async (dispatch) => {
     dispatch(authUser(""))
     localStorage.clear()
+    return
 };
 
 export const loginVK = (pathname) => async (dispatch) => {
