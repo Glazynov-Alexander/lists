@@ -17,21 +17,18 @@ function Login(props) {
         upStatusUser("")
     }
 
-    let res
+
     let logins = useCallback(async () => {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
-            res = await props.getUser(name, password, props.auth)
-            console.log(res)
-            if (res) {
-               await upStatusUser(res)
-                await upDisable(false)
-            }
+           props.getUser(name, password, props.auth).then(async res => {
+               debugger
+               if (res) {
+                   await upStatusUser(res)
+                   await upDisable(false)
+               }
+           })
         } else {
-
-                await upStatusUser(res)
-                await upDisable(false)
-
             upDisable(false)
         }
 
