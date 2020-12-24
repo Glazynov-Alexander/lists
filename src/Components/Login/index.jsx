@@ -22,6 +22,7 @@ function Login(props) {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
             res = await props.getUser(name, password, props.auth)
+            console.log(res)
             if (res) {
                await upStatusUser(res)
                 await upDisable(false)
@@ -33,8 +34,7 @@ function Login(props) {
 
             upDisable(false)
         }
-        await upStatusUser(res)
-        await upDisable(false)
+
     }, [props, name, password])
 
 
