@@ -22,7 +22,7 @@ function Login(props) {
         upDisable(true)
         if (!props.user && name && password !== undefined) {
            props.getUser(name, password, props.auth).then(async res => {
-               debugger
+
                if (res) {
                    await upStatusUser(res)
                    await upDisable(false)
