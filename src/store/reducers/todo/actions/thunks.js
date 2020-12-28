@@ -82,20 +82,24 @@ export const createUser = (name, password) => async (dispatch) => {
 
 };
 
-export const getUser = (name, password, token) => async (dispatch) => {
-    let globalUsers
-    globalUsers = await getUserAPI(name, password, token)
-    if (!globalUsers.data.user) {
-         return  globalUsers.data.status
-    }
+export const getUser = (name, password, token) => (dispatch) => {
+    return  getUserAPI(name, password, token).then(globalUsers => {
+        console.log(globalUsers)
+        if (!globalUsers.data.user) {
+            return  globalUsers.data.status
+        }
 
-    if (!localStorage.getItem('user')) {
-        localStorage.setItem('user', globalUsers.data.tokens.token)
-        localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
-    }
+        if (!localStorage.getItem('user')) {
+            localStorage.setItem('user', globalUsers.data.tokens.token)
+            localStorage.setItem('refresh', globalUsers.data.tokens.refreshToken)
+        }
 
-    dispatch(authUser(localStorage.getItem('user')));
-   return  dispatch(createNewUser(globalUsers.data.user));
+        dispatch(authUser(localStorage.getItem('user')));
+        return  dispatch(createNewUser(globalUsers.data.user));
+     })
+
+
+
 };
 
 export const loginAuto = () => async (dispatch) => {

@@ -8,15 +8,16 @@ function Login(props) {
     let [password, upPassword] = useState("")
     let [statusUser, upStatusUser] = useState("")
     let [disable, upDisable] = useState(false)
+
     function changeField(e) {
         upName(e.target.value)
         upStatusUser("")
     }
+
     function changeFieldPassword(e) {
         upPassword(e.target.value)
         upStatusUser("")
     }
-
 
     let logins = useCallback(async () => {
         upDisable(true)
@@ -35,23 +36,22 @@ function Login(props) {
     }, [props, name, password])
 
 
-
     return (<div className="inputText">
 
 
-            <Form.Group as={Row}  controlId="formHorizontalName">
+            <Form.Group as={Row} controlId="formHorizontalName">
                 <h4> Name</h4>
                 <Form.Control type="text" onChange={changeField} placeholder="Name"/>
 
             </Form.Group>
 
-            <Form.Group as={Row}  controlId="formHorizontalPassword">
+            <Form.Group as={Row} controlId="formHorizontalPassword">
                 <h4> Password</h4>
-                <Form.Control type="password"  onChange={changeFieldPassword} placeholder="Password"/>
+                <Form.Control type="password" onChange={changeFieldPassword} placeholder="Password"/>
 
             </Form.Group>
-            {statusUser ? <div className="status"><h3 >{statusUser}</h3></div> : null}
-            {statusUser ? <Alert variant="danger">{statusUser}</Alert>: null}
+
+            {statusUser ? <Alert variant="danger">{statusUser}</Alert> : null}
             <Button variant="dark" disabled={disable} onClick={logins}>Login</Button>
         </div>
     );
