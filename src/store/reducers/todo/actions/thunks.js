@@ -84,7 +84,6 @@ export const createUser = (name, password) => async (dispatch) => {
 
 export const getUser = (name, password, token) => (dispatch) => {
     return  getUserAPI(name, password, token).then(globalUsers => {
-        console.log(globalUsers)
         if (!globalUsers.data.user) {
             return  globalUsers.data.status
         }

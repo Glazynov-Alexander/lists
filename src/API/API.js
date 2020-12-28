@@ -64,3 +64,4 @@ export const tokenAuthorization = (token) => {
     return axios.get(`/auth/token-authorization`, {params: {user: token}})
 }
 
+axios.interceptors.response.use(res => res, error => error.response)
